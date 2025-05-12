@@ -1,0 +1,48 @@
+/* style.css */
+@import url("https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css");
+
+body {
+  background-color: Cornsilk;
+  font-family: "Computer Modern Sans", sans-serif;
+  margin: 0;
+  padding: 2rem;
+  color: #333;
+}
+
+.header {
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 1rem;
+}
+
+nav {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: DarkSlateGray;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.content {
+  text-align: center;
+  font-size: 16px;
+  margin: auto;
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+a:link {
+  color: DarkGreen;
+}
+
+a:visited {
+  color: DarkOliveGreen;
+}
