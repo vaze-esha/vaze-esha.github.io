@@ -18,17 +18,18 @@ body {
 nav {
   text-align: center;
   margin: 1rem 0;
+  font-size: 0.85rem; /* Added: makes the nav text smaller */
 }
 
 nav a {
   margin: 0 1rem;
-  text-decoration: none;
+  text-decoration: underline; /* Changed: always underline */
   color: DarkSlateGray;
   font-weight: bold;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Optional: keeps underline on hover */
 }
 
 .content {
