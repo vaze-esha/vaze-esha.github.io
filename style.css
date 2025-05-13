@@ -69,3 +69,19 @@ a:visited {
 .footnote p {
   margin: 0.2rem 0;
 }
+
+pre {
+  font-size: 14px;            /* Smaller block code */
+  background-color: #f4f4f4;
+  padding: 0.75em 1em;
+  overflow-x: auto;
+  border-radius: 4px;
+  max-width: 100%;
+  font-family: monospace;
+  line-height: 1.4;
+}
+
+
+.content * {
+  text-align: justify !important;
+}
