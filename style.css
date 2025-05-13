@@ -47,3 +47,25 @@ a:link {
 a:visited {
   color: DarkOliveGreen;
 }
+
+.footnote-ref {
+  text-decoration: none;
+  font-size: 0.8em;
+  vertical-align: super;
+  color: DarkSlateGray;
+}
+
+.footnote {
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  color: #444;
+  border-top: 1px solid #aaa;
+  padding-top: 0.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footnote p {
+  margin: 0.2rem 0;
+}
