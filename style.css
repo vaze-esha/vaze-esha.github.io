@@ -33,8 +33,8 @@ nav a:hover {
 }
 
 .content {
-  text-align: center;
-  font-size: 16px;
+  text-align: justify;
+  font-size: 14px;
   margin: auto;
   max-width: 800px;
   line-height: 1.6;
