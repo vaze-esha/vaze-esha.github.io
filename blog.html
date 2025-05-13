@@ -98,7 +98,7 @@ Why should you care? First, if there are some glaring econometric issues with ho
 </p>
 <hr>
 <p>
-Now, the way you organize the code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.<sup class="footnote-ref">4</sup>
+The way you organize your code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.<sup class="footnote-ref">4</sup>
 </p>
 
 <pre>
@@ -115,7 +115,7 @@ project_newfoundland_do        # main code directory
 │                                             # files here correspond (see numbering) to datasets that they produce as outputs
 │                                             # this keeps things easy to keep track of
 └── 2_final                    # datasets used for final analysis
-    ├── 2_1_Rct_analysis.do    # your main analysis file
+    ├── 2_1_rct_analysis.do    # your main analysis file
     └── 2_2_figures_maps.do    # some figures for your paper
 </pre>
 
@@ -139,7 +139,7 @@ use “/User/john_doe/Dropbox/2_final/2_1_rct_analysis.dta”
 </pre>
 
 <p>
-And on and on. You get the idea. While there’s nothing wrong with it (your code will run), the repetition alone should ring some alarm bells. Surely there must be a way to make this less clunky (there is). Here’s what you can do: create a do-file that lives in my main code repository and dump all your directory paths into it. Ideally, you want to be able to use this file across multiple sub-directories for my project, so the paths you use are “global” macros (read up on local and global scope in Stata to better understand what you need)
+And on and on. You get the idea. While there’s nothing wrong with it (your code will run), the repetition alone should ring some alarm bells. Surely there must be a way to make this less clunky (there is). Here’s what you can do: create a do-file that lives in my main code repository and dump all your directory paths into it. Ideally, you want to be able to use this file across multiple sub-directories for your project, so the paths you use are “global” macros (read up on local and global scope in Stata to better understand what you need)
 </p>
 
 <pre>
@@ -158,7 +158,7 @@ use “$raw_input_dir/0_1_rct.xlsx”
 </pre>
 
 <p>
-Which saves some space, looks better, and is infinitely more convenient than printing the whole file path over and over. For a typical project, I would create a file called setup.do that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.
+Which saves some space, looks better, and is infinitely more convenient than printing the whole file path over and over. For a typical project, I would create a setup file that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.
 </p>
 
 <h4>master</h4>
@@ -170,11 +170,13 @@ A master do-file sequentially calls every do-file in your project. When you’re
 <pre>
 global $dodir “User/john_doe/project_newfoundland_do” # point to wherever John cloned his repository, add to setup file
 …
-do “$dodir/2_analysis/2_1_ols_results.do”
+do “$dodir/2_analysis/2_1_rct_analysis.do”
+do “$dodir/2_analysis/2_2_figures_maps.do”
 </pre>
 
 <p>
 Some people also like having their paths in the master file instead of in <code>setup.do</code> – it’s really up to you, and both of these steps are technically optional, but they make life easier and your code more legible in the long and short run. 
+If you want even more control, you can make a master file for each code sub-directory to run each section of your data cleaning and analysis separately. 
 </p>
 
 <p>
