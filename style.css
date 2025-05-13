@@ -18,18 +18,18 @@ body {
 nav {
   text-align: center;
   margin: 1rem 0;
-  font-size: 0.85rem; /* Added: makes the nav text smaller */
+  font-size: 0.85rem; 
 }
 
 nav a {
   margin: 0 1rem;
-  text-decoration: underline; /* Changed: always underline */
+  text-decoration: underline;
   color: DarkSlateGray;
   font-weight: bold;
 }
 
 nav a:hover {
-  text-decoration: underline; /* Optional: keeps underline on hover */
+  text-decoration: underline; 
 }
 
 .content {
@@ -71,7 +71,7 @@ a:visited {
 }
 
 pre {
-  font-size: 14px;            /* Smaller block code */
+  font-size: 14px;            
   background-color: #f4f4f4;
   padding: 0.75em 1em;
   overflow-x: auto;
@@ -79,6 +79,8 @@ pre {
   max-width: 100%;
   font-family: monospace;
   line-height: 1.4;
+  text-align: left;           
+  margin: 1em 0;              
 }
 
 
