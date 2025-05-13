@@ -18,7 +18,7 @@ body {
 nav {
   text-align: center;
   margin: 1rem 0;
-  font-size: 0.85rem; 
+  font-size: 0.95rem; 
 }
 
 nav a {
@@ -34,7 +34,7 @@ nav a:hover {
 
 .content {
   text-align: justify;
-  font-size: 18px;
+  font-size: 16px;
   margin: auto;
   max-width: 800px;
   line-height: 1.6;
@@ -71,7 +71,7 @@ a:visited {
 }
 
 pre {
-  font-size: 11px;            
+  font-size: 13px;            
   background-color: #f4f4f4;
   padding: 0.75em 1em;
   overflow-x: auto;
