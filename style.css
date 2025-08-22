@@ -25,8 +25,7 @@ height: 100vh;
   font-family: 'Tiempos', Georgia, 'Times New Roman', serif;
   width: 90vw;
   min-width: 300px;
-  margin: 0 auto 2rem;       /* <- centers & restores normal flow */
-  padding: 0 16px;           /* optional breathing room */
+  margin: 0 auto 1rem;       /* <- centers & restores normal flow */
 }
 
 nav {
