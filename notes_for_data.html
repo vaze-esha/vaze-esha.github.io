@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Analysis Guide - Esha Vaze</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav>
+        <a href="blog.html">home</a>
+    </nav>
+
+    <div class="content">
+        <h4>Notes For Data Analysis</h4>
+        <p>
+            Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this short guide is to give you a skeleton on how to organize your project and manage your do-files in a way that is reproducible and clean.
+        </p>
+
+        <p>
+            I'll go through some basic do-file structuring practices to make your workflow easier to follow if this is your first time touching a large-ish project in Stata. Even if you feel that replication is not paramount for an undergraduate project (and perhaps it isn't), it's still useful to organize your data with that goal in mind, both for your own convenience and for that of your readers'.
+        </p>
+
+        <p>
+            I wrote this guide because most undergraduates who don't work as RAs haven't had the pleasure of reading <a href="https://web.stanford.edu/~gentzkow/research/CodeAndData.xhtml">Code and Data for the Social Sciences: A Practitioner's Guide</a>, and besides, the scale of most undergraduate projects is smaller and the scope much narrower. This guide caters to that small corner of writing code for economics, and is easier to follow (especially if you're not in the business of writing shell scripts for automation) because it only assumes a basic working knowledge of Stata.
+        </p>
+
+        <p>
+            Why Stata? The target audience for this guide are economics undergraduates writing their first paper/project, and it is highly likely that they use Stata (easy, caters to economics, recommended by instructors).<sup class="footnote-ref">1</sup>
+        </p>
+
+        <hr>
+
+        <p>
+            <em>Side-note:</em> Stata is weird, and has an overly specific use case (academic economics). The error messages are largely useless, the documentation is lean, the online forums are a scary place (I'm looking at you, Statalist), and most LLM chatbots perform unsatisfactorily when asked to write Stata code (clunky, inefficient, and ugly to look at). I'm not sure what the future looks like for Stata, but it's been here long enough, and for all my complaining it is very convenient for the niche it serves. That said, I don't think I would bother touching it if I wasn't enrolled in an economics degree.
+        </p>
+
+        <hr>
+
+        <p>
+            My main purpose here is to introduce a replicable format for code and data organization for smaller projects, the knowledge for which is primarily borrowed from my time as a research assistant, spent working on replication packets for papers. Per usual, all errors are my own.
+        </p>
+
+        <p>
+            To make this easy to follow, I provide an outline of a hypothetical project, and then show you how I would organize it. I try to keep this guide as linear as possible, although that is very rarely the case when you actually start getting your hands dirty.
+        </p>
+
+        <hr>
+
+        <p>
+            <strong>Hypothetical project</strong>: We're trying to measure the impact of an employment guarantee program on female unemployment rates in the Canadian province of Newfoundland. Assume that we live in a perfect world where the program assignment was randomized, and that the government gives us a full dataset of treated and control populations, along with their demographic details. To help our analysis, we downloaded a zip-code level map of Newfoundland, and a dataset containing household income, number of children and the address of everyone enrolled in the program.
+        </p>
+
+        <p>
+            These datasets constitute our "raw inputs". We will create a project directory on Dropbox (or any other file-hosting service that you prefer) where all our data will live.<sup class="footnote-ref">2</sup>
+        </p>
+
+        <p>Here's what a typical data directory would look like:</p>
+
+        <pre>
+project_newfoundland_data       # main data directory
+├── 0_raw_input                 # raw data directory
+│   ├── 0_1_rct.xlsx
+│   ├── 0_2_zip_codes.shp
+│   └── 0_3_income_and_covariates.xlsx
+├── 1_intermediate              # processed data directory
+│   ├── 1_1_rct_cleaned.dta
+│   ├── 1_2_zip_codes_rct_merged.dta
+│   └── 1_3_covariates_rct_merged.dta
+└── 2_final                     # datasets used for final analysis
+   └── 2_1_rct_analysis.dta    # contains variables for analysis
+                               # folder typically contains final datasets used for regressions, tables and figures
+        </pre>
+
+        <p>
+            Sub-directory <code>1_intermediate</code> contains data that has been cleaned (drop missing, harmonize variables, address consistency issues) and <code>2_final</code> contains the processed datasets for your final analysis. When you upload your replication packet, the only datasets that you (ideally) include in it are your raw inputs, and let your code generate the rest.
+        </p>
+
+        <p>
+            This makes your data organization easy to follow for someone who has limited context about the project, while also making it convenient for your future self to follow your data cleaning methodology.<sup class="footnote-ref">3</sup>
+        </p>
+
+        <hr>
+
+        <p>
+            <em>Aside:</em> Even when you first start, organize your project with a replication package in mind. Which means two things:
+        </p>
+        <ol>
+            <li>A complete stranger, given reasonable instructions, should be able to replicate every result in your project by running your code locally.</li>
+            <li>Said stranger (assuming that they have non-zero Stata knowledge) should understand your code, or at the very least be able to parse the rudiments of your data analysis.</li>
+        </ol>
+
+        <p>
+            Why should you care? First, if there are some glaring econometric issues with how you analyse your data, well documented and replicable files will help someone point them out (and save you tons of trouble). Second, future you is effectively a complete stranger (you will forget why you used that specific transformation two summers ago). Third, it's good for accountability: you should care about doing research that is transparent and replicable. Think of it as creating a public good.
+        </p>
+
+        <hr>
+
+        <p>
+            The way you organize your code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.<sup class="footnote-ref">4</sup>
+        </p>
+
+        <pre>
+project_newfoundland_do  # main code directory
+├── setup.do   
+├── master.do
+├── 0_import_and_process       # import and process data
+│   ├── 0_1_rct_import.do
+│   ├── 0_2_zip_codes_import.do
+│   └── 0_3_income_and_covariates_import.do
+├── 1_intermediate             # processed data directory
+│   ├── 1_1_rct_cleaning.do
+│   ├── 1_2_create_dataset.do
+│   └── 1_3_covariates_rct_create_dataset.do  # create your datasets
+│                                             # files here correspond (see numbering) to datasets that they produce as outputs
+│                                             # this keeps things easy to keep track of
+└── 2_final                    # datasets used for final analysis
+   ├── 2_1_rct_analysis.do    # your main analysis file
+   └── 2_2_figures_maps.do    # some figures for your paper
+        </pre>
+
+        <hr>
+
+        <p>
+            So what are <code>master.do</code> and <code>setup.do</code>? You want a stranger to be able to replicate this code by running a single file (literally at the push of a button), and a master do-file lets you do that. Now that all your data and code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:<sup class="footnote-ref">5</sup>
+        </p>
+
+        <h4>setup</h4>
+
+        <p>
+            More often than not, people do the following:
+        </p>
+
+        <pre>
+use "/User/john_doe/Dropbox/project_newfoundland_data/0_raw_input/0_1_rct.xlsx"
+…
+use "/User/john_doe/Dropbox/project_newfoundland_data/1_intermediate/1_1_rct_cleaned.dta"
+…
+use "/User/john_doe/Dropbox/project_newfoundland_data/2_final/2_1_rct_analysis.dta"
+        </pre>
+
+        <p>
+            And on and on. You get the idea. While there's nothing wrong with it (your code will run), the repetition alone should ring some alarm bells. Surely there must be a way to make this less clunky (there is). <strong>Here's what you can do</strong>: create a do-file that lives in your main code repository and dump all your directory paths into it. Ideally, you want to be able to use this file across multiple sub-directories for your project, so the paths you use are "global" macros (read up on local and global scope in Stata to better understand what you need)
+        </p>
+
+        <pre>
+global $workingdir "/User/john_doe/Dropbox/project_newfoundland_data"
+global $raw_input_dir "$workingdir/0_raw_input"
+global $intermediate_data_dir "$workingdir/1_intermediate_data"
+…
+        </pre>
+
+        <p>
+            Now you're free to use:
+        </p>
+
+        <pre>
+use "$raw_input_dir/0_1_rct.xlsx"
+        </pre>
+
+        <p>
+            Which saves some space, looks better, and is infinitely more convenient than printing the whole file path over and over. For a typical project, I would create a setup file that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.
+        </p>
+
+        <h4>master</h4>
+
+        <p>
+            A master do-file sequentially calls every do-file in your project. When you're working with larger projects, they're convenient because they save you the trouble of having to individually run files. Coming back to replication, when you finally make your project publicly available your master file lets people run your code at the click of a button instead of having to figure out the right order needed to generate your results. It looks something like this:
+        </p>
+
+        <pre>
+global $dodir "User/john_doe/project_newfoundland_do" # point to wherever John cloned his repository, add to setup file
+…
+do "$dodir/2_analysis/2_1_rct_analysis.do"
+do "$dodir/2_analysis/2_2_figures_maps.do"
+...
+        </pre>
+
+        <p>
+            Some people also like having their paths in the master file instead of in <code>setup.do</code> – it's really up to you, and both of these steps are technically optional, but they make life easier and your code more legible in the long and short run.
+            If you want even more control, you can make a master file for each code sub-directory to run each section of your data cleaning and analysis separately.
+        </p>
+
+        <p>
+            Great. Now you have neatly organized boxes, and specific uses for them all. Write down exactly what's in each file, each directory, each sub-directory (Make a README file, make two, make four). Be as detailed as possible, and then cut the fluff later when you feel like you have a better handle on how everything works.
+        </p>
+
+        <p>
+            When making your do-files, write comments. Be verbose. Try to make everything as simple as possible, and then go back again and make it simpler. If you find yourself repeating the same line of code over and over, there's a better way to do it. It always helps to imagine a complete stranger who knows nothing about your project, and then write your code so that given minimal context they're able to make sense of what it does.<sup class="footnote-ref">6</sup>
+        </p>
+
+        <hr>
+
+        <p>
+            <strong>Closing Notes:</strong>
+            A large part of this guide was born out of frustration from watching people clear-reload their datasets from the depths of their downloads folder every single time 
+            they ran a regression. I realised that it would be useful (not to my cohort, but perhaps future ones) to have a short text that tells you how to structure your 
+            project so that it's easier for you, and whoever is helping you to understand it. This is, as stated previously, a very bare-bones guide and should work fine for a small to
+            medium sized project. Eventually, you'll want to learn how to automate more of your workflow -- you can learn basic shell-scripting 
+            (here's a fun <a href="https://tldp.org/LDP/abs/html/index.html">book</a>), or just use Python. As your projects get larger, you'll even want to automate things 
+            like importing raw-inputs from a directory (it's also fun, even when you don't have to do it -- I learnt how to use my computer pretty late in life, and I'm 
+            still fascinated by how cool and easy it is to automate really simple tasks).<sup class="footnote-ref">7</sup> If you're comfortable following a document less hand-holdy (and more general), 
+            then you should read <a href="https://web.stanford.edu/~gentzkow/research/CodeAndData.xhtml">Code and Data for the Social Sciences</a>. 
+            <br>
+            Other fun resources you can look at (if you're interested in the general concept of reproducible research):
+        </p>
+        <ol>
+            <li><a href="https://i4replication.org/about.html">Institute for Replication</a></li>
+            <li>Browse AER papers' replication packages (for inspiration)</li>
+        </ol>
+
+        <hr>
+
+        <p>
+            <strong>Further Reading:</strong> Some additional resources I use and like
+        </p>
+        <ol>
+            <li><a href="https://ljristovska.com/assets/docs/coding_for_econs_20190221.pdf">Coding for Economists: A Language-Agnostic Guide to Programming for Economists</a></li>
+            <li><a href="https://www.aeaweb.org/articles?id=10.1257/jep.28.1.209">An Economist's Guide to Visualizing Data</a></li>
+            <li><a href="https://pubs.aeaweb.org/doi/pdf/10.1257/jep.35.3.193">Evidence on Research Transparency in Economics</a></li>
+            <li>Nick Hagerty has a cool course on <a href="https://github.com/msu-econ-data-analytics/course-materials#external-resources">advanced data analytics in R</a>, with a <a href="https://raw.githack.com/msu-econ-data-analytics/course-materials/main/data-cleaning-checklist/Data-Cleaning-Checklist.pdf">data cleaning checklist</a> that's concise and useful.</li>
+        </ol>
+
+        <div class="footnote">
+            <p><sup>1</sup> You're more than welcome to use it for organizing your code and analysis in any other language. This is not a "how to write code for (undergraduate) economic data analysis guide", so the general principles extend to pretty much whatever language you choose to work in.</p>
+            <p><sup>2</sup> You can also do this locally, especially if you're the only one working on the project.</p>
+            <p><sup>3</sup> Even if you're like me and claim you have perfect memory, as your project gets larger and contains a mountain of data it's better to have it corralled away into specific boxes than not. The added convenience comes from the fact that your code generates everything except the raw inputs, so you can make edits to your analysis more conveniently as time passes.</p>
+            <p><sup>4</sup> Even if you're the only one working on the project, it's incredibly useful to have a record of the changes you make. Version control will save you time and keep you accountable. If it makes life easier (and you don't want to go through the mental gymnastics of learning command line functionality to use GitHub), consider getting GitHub Desktop to manage your do-files.</p>
+            <p><sup>5</sup> Sorry for flip-flopping between 0/1 indexing, but that's just how I number these. You probably want to change that based on your philosophical and aesthetic bent.</p>
+            <p><sup>6</sup> They don't have to know it exactly, but if you're running a 2SLS design with logs and lags then you should specify why, and document each variable transformation you make along the way.</p>
+            <p><sup>7</sup> You might need to import hundreds of excel sheets from a government database that is regularly updated. Doing this manually would be both painful and a waste of time.</p>
+        </div>
+    </div>
+</body>
+</html>
