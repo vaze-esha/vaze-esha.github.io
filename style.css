@@ -1,8 +1,8 @@
 /* style.css */
-@import url("https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 body {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     margin: 0;
     padding: 0;
     color: black;
@@ -18,7 +18,7 @@ body {
     text-align: center;
     font-size: 16px;
     margin-bottom: 1rem;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 nav {
@@ -43,13 +43,13 @@ nav a:hover {
     font-size: 16px;
     max-width: 800px;
     line-height: 1.6;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     width: 90vw;
     min-width: 300px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 a:link {
@@ -89,7 +89,7 @@ pre {
     overflow-x: auto;
     border-radius: 4px;
     max-width: 100%;
-    font-family: monospace;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
     line-height: 1.4;
     text-align: left;
     margin: 1em 0;
@@ -100,15 +100,12 @@ code {
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-size: 13px;
-}
-
-.content * {
-    text-align: justify !important;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
 }
 
 .email {
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 1em;
-    letter-spacing: 0.02em;
-    font-weight: normal;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.95em;
+    letter-spacing: -0.02em;
+    font-weight: 400;
 }
