@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="header">
+<b style="font-size: 1.8em;">My TODO List</b> <br>
+</div>
+<br>
+
+<div class="content">
+    <p>
+        Instead of using a notebook (or three crumpled receipts), I've moved to a TODO setup that lives in my shell config file.
+    </p>
+
+    <hr>
+
+    <p>1. Paste the following block in your shell config file:</p>
+
+    <pre>
+# TODO SCRIPT. use as move_todo line_number
+move_todo() {
+    local linenum=$1
+    local date_today=$(date +"%d/%m")
+    local time_now=$(date +"%H%M")
+
+    # Add date header if not already present
+    if ! grep -q "^$date_today" done; then
+        echo "$date_today" >> done
+    fi
+
+    # Move line with timestamp and checkbox
+    sed -n "${linenum}p" todo \
+        | sed "s/^\[\]/[X] ${time_now}:/" >> done
+
+    # Delete the original line from todo
+    sed -i '' "${linenum}d" todo
+}</pre>
+
+    <p>2. Make a <code>todo</code> file and a <code>done</code> file.</p>
+
+    <p>3. Add an item to your <code>todo</code> list. Some examples:</p>
+
+    <pre>
+[] post TODO script
+[] drink coffee</pre>
+
+    <p>4. To move an item to the <code>done</code> list:</p>
+
+    <pre>
+move_todo 1</pre>
+
+    <p>5. The <code>done</code> file is now updated:</p>
+
+    <pre>
+[X] 0756: post TODO script</pre>
+
+    <p>6. Make sure to change into the directory where your <code>done</code> and <code>todo</code> files live before using <code>move_todo</code>.</p>
+</div>
+
+<br>
+<br>
+
+<div class="content" style="text-align:center">
+<a href="index.html">Home</a>
+</div>
+
+</body>
+</html>
