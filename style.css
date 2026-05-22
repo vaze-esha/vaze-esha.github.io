@@ -65,6 +65,11 @@ vertical-align: super;
 color: black;
 }
 
+.footnote-ref a {
+color: black;
+text-decoration: none;
+}
+
 .footnote {
 font-size: 0.85rem;
 margin-top: 1rem;

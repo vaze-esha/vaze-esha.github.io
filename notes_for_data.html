@@ -50,7 +50,7 @@
 
         <p>
             Why is this guide focused on Stata? The target audience for this guide is an economics undergraduate writing their first 
-            paper/project, and it is highly likely that they will use Stata (easy, caters to economics, recommended by instructors).<sup class="footnote-ref">1</sup>
+            paper/project, and it is highly likely that they will use Stata (easy, caters to economics, recommended by instructors).<sup class="footnote-ref"><a href="#fn1" id="fnref1">1</a></sup>
         </p>
 
         <hr>
@@ -91,7 +91,7 @@
 
         <p>
             These datasets constitute our "raw inputs". We will create a project directory 
-            on Dropbox (or any other file-hosting service that you prefer) where all our data will live.<sup class="footnote-ref">2</sup>
+            on Dropbox (or any other file-hosting service that you prefer) where all our data will live.<sup class="footnote-ref"><a href="#fn2" id="fnref2">2</a></sup>
         </p>
 
         <p>Here's what a typical data directory would look like:</p>
@@ -120,7 +120,7 @@ project_newfoundland_data       # main data directory
 
         <p>
             This makes your data organization easy to follow for someone who has limited context about 
-            the project, while also making it convenient for your future self to follow your data cleaning methodology.<sup class="footnote-ref">3</sup>
+            the project, while also making it convenient for your future self to follow your data cleaning methodology.<sup class="footnote-ref"><a href="#fn3" id="fnref3">3</a></sup>
         </p>
 
         <hr>
@@ -144,7 +144,7 @@ project_newfoundland_data       # main data directory
 
         <p>
             The way you organize your code mimics the data storage structure. I recommend creating a repository 
-            on GitHub with relevant sub-directories to store all your code.<sup class="footnote-ref">4</sup>
+            on GitHub with relevant sub-directories to store all your code.<sup class="footnote-ref"><a href="#fn4" id="fnref4">4</a></sup>
         </p>
 
         <pre>
@@ -171,7 +171,7 @@ project_newfoundland_do  # main code directory
         <p>
             So what are <code>master.do</code> and <code>setup.do</code>? You want a stranger to be able to replicate this code by running a 
             single file (literally at the push of a button), and a master do-file lets you do that. Now that all your data and 
-            code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:<sup class="footnote-ref">5</sup>
+            code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:<sup class="footnote-ref"><a href="#fn5" id="fnref5">5</a></sup>
         </p>
 
         <h4>setup</h4>
@@ -254,7 +254,7 @@ do "$dodir/2_analysis/2_2_figures_maps.do"
             When making your do-files, write comments. Be verbose. Try to make everything as simple as possible, and then go back again and make it simpler. 
             If you find yourself repeating the same line of code over and over, there's a better way to do it. 
             It always helps to imagine a complete stranger who knows nothing about your project, and then write your code so 
-            that given minimal context they're able to make sense of what it does.<sup class="footnote-ref">6</sup>
+            that given minimal context they're able to make sense of what it does.<sup class="footnote-ref"><a href="#fn6" id="fnref6">6</a></sup>
         </p>
 
         <hr>
@@ -267,7 +267,7 @@ do "$dodir/2_analysis/2_2_figures_maps.do"
             medium sized project. Eventually, you'll want to learn how to automate more of your workflow -- you can learn basic shell-scripting 
             (here's a fun <a href="https://tldp.org/LDP/abs/html/index.html">book</a>), or just use Python. As your projects get larger, you'll even want to automate things 
             like importing raw-inputs from a directory (it's also fun, even when you don't have to do it -- I learnt how to use my computer pretty late in life, and I'm 
-            still fascinated by how cool and easy it is to automate really simple tasks).<sup class="footnote-ref">7</sup> If you're comfortable following a document less hand-holdy (and more general), 
+            still fascinated by how cool and easy it is to automate really simple tasks).<sup class="footnote-ref"><a href="#fn7" id="fnref7">7</a></sup> If you're comfortable following a document less hand-holdy (and more general), 
             then you should read <a href="https://web.stanford.edu/~gentzkow/research/CodeAndData.xhtml">Code and Data for the Social Sciences</a>. 
             <br>
             Other fun resources you can look at (if you're interested in the general concept of reproducible research):
@@ -290,13 +290,13 @@ do "$dodir/2_analysis/2_2_figures_maps.do"
         </ol>
 
         <div class="footnote">
-            <p><sup>1</sup> You're more than welcome to use it for organizing your code and analysis in any other language. This is not a "how to write code for (undergraduate) economic data analysis guide", so the general principles extend to pretty much whatever language you choose to work in.</p>
-            <p><sup>2</sup> You can also do this locally, especially if you're the only one working on the project.</p>
-            <p><sup>3</sup> Even if you're like me and claim you have perfect memory, as your project gets larger and contains a mountain of data it's better to have it corralled away into specific boxes than not. The added convenience comes from the fact that your code generates everything except the raw inputs, so you can make edits to your analysis more conveniently as time passes.</p>
-            <p><sup>4</sup> Even if you're the only one working on the project, it's incredibly useful to have a record of the changes you make. Version control will save you time and keep you accountable. If it makes life easier (and you don't want to go through the mental gymnastics of learning command line functionality to use GitHub), consider getting GitHub Desktop to manage your do-files.</p>
-            <p><sup>5</sup> Sorry for flip-flopping between 0/1 indexing, but that's just how I number these. You probably want to change that based on your philosophical and aesthetic bent.</p>
-            <p><sup>6</sup> They don't have to know it exactly, but if you're running a 2SLS design with logs and lags then you should specify why, and document each variable transformation you make along the way.</p>
-            <p><sup>7</sup> You might need to import hundreds of excel sheets from a government database that is regularly updated. Doing this manually would be both painful and a waste of time.</p>
+            <p id="fn1"><sup>1</sup> <a href="#fnref1">↩</a> You're more than welcome to use it for organizing your code and analysis in any other language. This is not a "how to write code for (undergraduate) economic data analysis guide", so the general principles extend to pretty much whatever language you choose to work in.</p>
+            <p id="fn2"><sup>2</sup> <a href="#fnref2">↩</a> You can also do this locally, especially if you're the only one working on the project.</p>
+            <p id="fn3"><sup>3</sup> <a href="#fnref3">↩</a> Even if you're like me and claim you have perfect memory, as your project gets larger and contains a mountain of data it's better to have it corralled away into specific boxes than not. The added convenience comes from the fact that your code generates everything except the raw inputs, so you can make edits to your analysis more conveniently as time passes.</p>
+            <p id="fn4"><sup>4</sup> <a href="#fnref4">↩</a> Even if you're the only one working on the project, it's incredibly useful to have a record of the changes you make. Version control will save you time and keep you accountable. If it makes life easier (and you don't want to go through the mental gymnastics of learning command line functionality to use GitHub), consider getting GitHub Desktop to manage your do-files.</p>
+            <p id="fn5"><sup>5</sup> <a href="#fnref5">↩</a> Sorry for flip-flopping between 0/1 indexing, but that's just how I number these. You probably want to change that based on your philosophical and aesthetic bent.</p>
+            <p id="fn6"><sup>6</sup> <a href="#fnref6">↩</a> They don't have to know it exactly, but if you're running a 2SLS design with logs and lags then you should specify why, and document each variable transformation you make along the way.</p>
+            <p id="fn7"><sup>7</sup> <a href="#fnref7">↩</a> You might need to import hundreds of excel sheets from a government database that is regularly updated. Doing this manually would be both painful and a waste of time.</p>
         </div>
     </div>
 
