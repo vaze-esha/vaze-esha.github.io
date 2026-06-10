@@ -24,8 +24,9 @@ body {
 /* ── Sidebar ── */
 
 .sidebar {
-  width: 240px;
-  min-width: 240px;
+  flex: 0 0 25%;
+  width: 25%;
+  min-width: 0;
   padding: 2rem 1.25rem;
   position: sticky;
   top: 0;
@@ -83,9 +84,8 @@ body {
 /* ── Main content ── */
 
 .main-content {
-  flex: 1;
+  flex: 0 0 50%;
   padding: 2rem 2.5rem;
-  max-width: 820px;
   min-width: 0;
   border-left: 1px solid #e0e0e0;
   border-right: 1px solid #e0e0e0;
@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Links */
 a:link,
 a:visited {
-  color: #FF00FF;
+  color: #0049DB;
 }
 
 /* Code */
@@ -343,6 +343,7 @@ hr {
   }
 
   .sidebar {
+    flex: none;
     width: 100%;
     min-width: 0;
     height: auto;
