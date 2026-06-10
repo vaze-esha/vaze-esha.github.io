@@ -10,6 +10,9 @@
 <body>
   <aside class="sidebar">
     <div class="site-title"><a href="/">Esha Vaze</a></div>
+<form class="search-form" id="search-form">
+  <input type="text" class="search-input" id="search-input" placeholder="Search...">
+</form>
 <nav class="sidebar-nav">
   <a href="/" class="">Home</a>
   <a href="/blog/" class="active">Blog</a>
@@ -24,7 +27,9 @@
     <p class="post-date">03/2025</p>
   </header>
   <div class="post-content">
-    <p>Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.</p>
+    <h2 id="introduction">Introduction</h2>
+
+<p>Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.</p>
 
 <p>I’ll go through some basic do-file structuring practices to make your workflow easier to follow if this is your first time touching a large-ish project in Stata. Even if you feel that replication is not paramount for an undergraduate project (and perhaps it isn’t), it’s still useful to organize your data with that goal in mind, both for your own convenience and for that of your readers’.</p>
 
@@ -48,7 +53,7 @@
 
 <p>To make this easy to follow, I describe a hypothetical project, and then show you how I would organize it. I try to keep this guide as linear as possible, although that is very rarely the case when you actually start getting your hands dirty.</p>
 
-<hr />
+<h2 id="data-organization">Data Organization</h2>
 
 <p><strong>Hypothetical project</strong>: We’re trying to measure the impact of an employment guarantee program on female unemployment rates in the Canadian province of Newfoundland. Assume that we live in a perfect world where the program assignment was randomized, and the government gives us a full dataset of treated and control populations with their demographic details. To help our analysis, we download a zip-code level map of Newfoundland, and a dataset containing household income, number of children and the addresses of everyone enrolled in the program.</p>
 
@@ -85,7 +90,7 @@
 
 <p>Why should you care? First, if there are some glaring econometric issues with how you analyze your data, well documented and replicable files will help someone point them out (and save you tons of trouble). Second, future you is effectively a complete stranger (you will forget why you used that specific transformation two summers ago). Third, it’s good for accountability: you should care about doing research that is transparent and replicable. Think of it as creating a public good.</p>
 
-<hr />
+<h2 id="code-organization">Code Organization</h2>
 
 <p>The way you organize your code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
 
@@ -111,7 +116,7 @@
 
 <p>So what are <code class="language-plaintext highlighter-rouge">master.do</code> and <code class="language-plaintext highlighter-rouge">setup.do</code>? You want a stranger to be able to replicate this code by running a single file (literally at the push of a button), and a master do-file lets you do that. Now that all your data and code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup></p>
 
-<h4 id="setup">setup</h4>
+<h2 id="setupdo"><code class="language-plaintext highlighter-rouge">setup.do</code></h2>
 
 <p>More often than not, people do the following:</p>
 
@@ -137,7 +142,7 @@ global $intermediate_data_dir "$workingdir/1_intermediate_data"
 
 <p>Which saves some space, looks better, and is much more convenient than printing the whole file path over and over. For a typical project, I would create a setup file that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.</p>
 
-<h4 id="master">master</h4>
+<h2 id="masterdo"><code class="language-plaintext highlighter-rouge">master.do</code></h2>
 
 <p>A master do-file sequentially calls every do-file in your project. When you’re working with larger projects, they’re convenient because they save you the trouble of having to individually run files. Coming back to replication, when you finally make your project publicly available your master file lets people run your code at the click of a button instead of having to figure out the right order needed to generate your results. It looks something like this:</p>
 
@@ -166,9 +171,9 @@ A large part of this guide was born out of frustration from watching people clea
   <li>Browse AER papers’ replication packages (for inspiration)</li>
 </ol>
 
-<hr />
+<h2 id="further-reading">Further Reading</h2>
 
-<p><strong>Further Reading:</strong> Some additional resources I use and like</p>
+<p>Some additional resources I use and like</p>
 
 <ol>
   <li><a href="https://ljristovska.com/assets/docs/coding_for_econs_20190221.pdf">Coding for Economists: A Language-Agnostic Guide to Programming for Economists</a></li>
@@ -207,5 +212,49 @@ A large part of this guide was born out of frustration from watching people clea
 </article>
 
   </main>
+  
+  <aside class="toc-sidebar">
+    <nav class="toc-nav">
+      <p class="toc-title">Table of contents</p>
+      <ul class="toc-list" id="toc-list"></ul>
+    </nav>
+  </aside>
+  
+  <script>
+    (function () {
+      var sf = document.getElementById('search-form');
+      if (sf) {
+        sf.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var q = document.getElementById('search-input').value.trim();
+          if (q) window.open('https://www.google.com/search?q=site%3Avaze-esha.github.io+' + encodeURIComponent(q));
+        });
+      }
+
+      var tocList = document.getElementById('toc-list');
+      if (tocList) {
+        var headings = document.querySelectorAll('.post-content h2, .post-content h3');
+        headings.forEach(function (h) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent;
+          if (h.tagName === 'H3') li.classList.add('toc-h3');
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocList.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+              var active = tocList.querySelector('a[href="#' + entry.target.id + '"]');
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+    }());
+  </script>
 </body>
 </html>

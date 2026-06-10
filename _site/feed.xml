@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="https://vaze-esha.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://vaze-esha.github.io/" rel="alternate" type="text/html" /><updated>2026-06-09T21:33:28-07:00</updated><id>https://vaze-esha.github.io/feed.xml</id><title type="html">Esha Vaze</title><entry><title type="html">Is This Book Worth My Time? An Optimal Rating Threshold Approach</title><link href="https://vaze-esha.github.io/2026/05/01/optimal-rating-threshold.html" rel="alternate" type="text/html" title="Is This Book Worth My Time? An Optimal Rating Threshold Approach" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>https://vaze-esha.github.io/2026/05/01/optimal-rating-threshold</id><content type="html" xml:base="https://vaze-esha.github.io/2026/05/01/optimal-rating-threshold.html"><![CDATA[<p>This week at the CETC, I attended <a href="https://mjhmurphy.github.io/">M. Murphy</a>’s talk on optimal review design. This post leans on his paper, <a href="https://mjhmurphy.github.io/files/pdf/ClicksComments_mjHM.pdf">“Clicks or Comments? The quality-quantity trade-off of review systems”</a>, to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2026-06-09T21:51:48-07:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Esha Vaze</title><entry><title type="html">Is This Book Worth My Time? An Optimal Rating Threshold Approach</title><link href="http://localhost:4001/2026/05/01/optimal-rating-threshold.html" rel="alternate" type="text/html" title="Is This Book Worth My Time? An Optimal Rating Threshold Approach" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>http://localhost:4001/2026/05/01/optimal-rating-threshold</id><content type="html" xml:base="http://localhost:4001/2026/05/01/optimal-rating-threshold.html"><![CDATA[<p>This week at the CETC, I attended <a href="https://mjhmurphy.github.io/">M. Murphy</a>’s talk on optimal review design. This post leans on his paper, <a href="https://mjhmurphy.github.io/files/pdf/ClicksComments_mjHM.pdf">“Clicks or Comments? The quality-quantity trade-off of review systems”</a>, to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.</p>
 
-<hr />
+<h2 id="the-book-selection-problem">The Book-Selection Problem</h2>
 
 <p>I have a decent number of friends who read a lot, and also happen to be tapped into the social-media-literary-scene. For someone who gets most of their books from the seconds store down on Main Street, my exposure to literature that is new and hot is also largely secondhand. I don’t watch short (or long) form content about books, and the only person whose reviews I bother reading are mine (for spelling errors). I do no research before I buy the book, and have developed my current taste in the most informationally inefficient way possible, through haphazard trial-and-error.</p>
 
@@ -33,7 +33,7 @@
 
 <p>So I want to continue to use my Goodreads “look at the average” system, but with some confidence. To do this, I’ll take Murphy’s paper to Goodreads data and compute the optimal rating threshold that determines which books are worth my time.</p>
 
-<hr />
+<h2 id="the-model">The Model</h2>
 
 <p>Assume that the optimal review system is binary, and I want to determine some threshold value $k$ such that all books rated $k’$, for $k \leq k’$, are good, and I should buy them. For simplicity, I’ll stick to the paper’s language and motivate the review threshold decision for the platform, but it doesn’t change the spirit of this exercise.</p>
 
@@ -43,7 +43,7 @@
 
 <p><em>Note:</em> We’ll hand wave over quite a bit of theory, but the key insight here is that the symmetric binary review system is the optimal binary review system if and only if reviewers are sufficiently heterogeneous.</p>
 
-<hr />
+<h2 id="data-and-heterogeneity">Data and Heterogeneity</h2>
 
 <p>We’ll use the same data used to plot <a href="#fig1">Figure 1</a>, and take the model to it. I take the top 1,000 books per genre, from 2010–2017, and use exact per-book star-count histograms from the raw reviews file (individual star ratings 1–5).<br />
 <strong>Sample Selection:</strong> Choosing the top 1,000 books is a necessary evil (although I could sample more). Think of it as imposing a lower bound for $m_b$ on all books.</p>
@@ -72,7 +72,7 @@
   <li>Note that Literary Fiction (which is the genre I happen to care most about) has the most uniform spread across all five stars (8%/14%/25%/30%/23%), resembling an almost flat distribution. <em>The lit-fic distribution is encouraging. If each threshold captures meaningful information, then tastes are sufficiently heterogeneous and we should be able to determine a decision threshold based on averages alone. Things look a little bleak for other genres, where the skew indicates that we might want to pay more attention to the distribution of reviews than the average alone.</em></li>
 </ul>
 
-<hr />
+<h2 id="optimal-thresholds">Optimal Thresholds</h2>
 
 <p>Now that we have a learning rate and have established that the data (for literary fiction) is sufficiently heterogeneous, we want to determine the binary cutoff threshold that will let us pick a good book, solely based on its average rating. If Goodreads replaced its 5-star system with a binary (thumbs-up / thumbs-down) system, what single cutoff point maximises the information the platform retains about book quality?</p>
 
@@ -117,7 +117,7 @@
       <p>In practice, I’m not always drawing from the top 1,000 books in a genre, so the rating threshold helps me solve for $m_b$ each time. Determining whether $b$ satisfies my idiosyncratic tastes is still my cross to bear. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><summary type="html"><![CDATA[This week at the CETC, I attended M. Murphy’s talk on optimal review design. This post leans on his paper, “Clicks or Comments? The quality-quantity trade-off of review systems”, to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.]]></summary></entry><entry><title type="html">My TODO List</title><link href="https://vaze-esha.github.io/2026/05/01/todo-list.html" rel="alternate" type="text/html" title="My TODO List" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>https://vaze-esha.github.io/2026/05/01/todo-list</id><content type="html" xml:base="https://vaze-esha.github.io/2026/05/01/todo-list.html"><![CDATA[<p>Instead of using a notebook (or three crumpled receipts), I’ve moved to a TODO setup that lives in my shell config file.</p>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[This week at the CETC, I attended M. Murphy’s talk on optimal review design. This post leans on his paper, “Clicks or Comments? The quality-quantity trade-off of review systems”, to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.]]></summary></entry><entry><title type="html">My TODO List</title><link href="http://localhost:4001/2026/05/01/todo-list.html" rel="alternate" type="text/html" title="My TODO List" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>http://localhost:4001/2026/05/01/todo-list</id><content type="html" xml:base="http://localhost:4001/2026/05/01/todo-list.html"><![CDATA[<p>Instead of using a notebook (or three crumpled receipts), I’ve moved to a TODO setup that lives in my shell config file.</p>
 
 <hr />
 
@@ -174,7 +174,7 @@ move_todo<span class="o">()</span> <span class="o">{</span>
 
 <ol>
   <li>Make sure to change into the directory where your <code class="language-plaintext highlighter-rouge">done</code> and <code class="language-plaintext highlighter-rouge">todo</code> files live before using <code class="language-plaintext highlighter-rouge">move_todo</code>.</li>
-</ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Instead of using a notebook (or three crumpled receipts), I’ve moved to a TODO setup that lives in my shell config file.]]></summary></entry><entry><title type="html">Vancouver Café Rankings</title><link href="https://vaze-esha.github.io/2026/05/01/vancouver-cafe-rankings.html" rel="alternate" type="text/html" title="Vancouver Café Rankings" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>https://vaze-esha.github.io/2026/05/01/vancouver-cafe-rankings</id><content type="html" xml:base="https://vaze-esha.github.io/2026/05/01/vancouver-cafe-rankings.html"><![CDATA[<p>This is <strong>not</strong> a definitive coffee-snob approved ranking. Unfortunately, despite going to upwards of three coffee shops a week (on average), I’m the most satisfied by a bottomless, biting-strong drip than by any other type of coffee. Fortunately, I do like working in cafés, and thus have a large <em>n</em> inference on what “good coffee” tastes like.</p>
+</ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Instead of using a notebook (or three crumpled receipts), I’ve moved to a TODO setup that lives in my shell config file.]]></summary></entry><entry><title type="html">Vancouver Café Rankings</title><link href="http://localhost:4001/2026/05/01/vancouver-cafe-rankings.html" rel="alternate" type="text/html" title="Vancouver Café Rankings" /><published>2026-05-01T00:00:00-07:00</published><updated>2026-05-01T00:00:00-07:00</updated><id>http://localhost:4001/2026/05/01/vancouver-cafe-rankings</id><content type="html" xml:base="http://localhost:4001/2026/05/01/vancouver-cafe-rankings.html"><![CDATA[<p>This is <strong>not</strong> a definitive coffee-snob approved ranking. Unfortunately, despite going to upwards of three coffee shops a week (on average), I’m the most satisfied by a bottomless, biting-strong drip than by any other type of coffee. Fortunately, I do like working in cafés, and thus have a large <em>n</em> inference on what “good coffee” tastes like.</p>
 
 <p>Since I like consuming jitter-inducing amounts of caffeine before I noisily type on my computer, and I don’t like search costs, here is a list of Vancouver cafés to work at, that have:</p>
 
@@ -233,7 +233,9 @@ Massive. Large windows, very high ceilings, attached to the art school. The coff
       <p>I strongly believe that there is an objective threshold for good music before subjective taste-based preferences kick in. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><summary type="html"><![CDATA[This is not a definitive coffee-snob approved ranking. Unfortunately, despite going to upwards of three coffee shops a week (on average), I’m the most satisfied by a bottomless, biting-strong drip than by any other type of coffee. Fortunately, I do like working in cafés, and thus have a large n inference on what “good coffee” tastes like.]]></summary></entry><entry><title type="html">Notes for Data Analysis</title><link href="https://vaze-esha.github.io/2025/03/01/notes-for-data-analysis.html" rel="alternate" type="text/html" title="Notes for Data Analysis" /><published>2025-03-01T00:00:00-08:00</published><updated>2025-03-01T00:00:00-08:00</updated><id>https://vaze-esha.github.io/2025/03/01/notes-for-data-analysis</id><content type="html" xml:base="https://vaze-esha.github.io/2025/03/01/notes-for-data-analysis.html"><![CDATA[<p>Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.</p>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[This is not a definitive coffee-snob approved ranking. Unfortunately, despite going to upwards of three coffee shops a week (on average), I’m the most satisfied by a bottomless, biting-strong drip than by any other type of coffee. Fortunately, I do like working in cafés, and thus have a large n inference on what “good coffee” tastes like.]]></summary></entry><entry><title type="html">Notes for Data Analysis</title><link href="http://localhost:4001/2025/03/01/notes-for-data-analysis.html" rel="alternate" type="text/html" title="Notes for Data Analysis" /><published>2025-03-01T00:00:00-08:00</published><updated>2025-03-01T00:00:00-08:00</updated><id>http://localhost:4001/2025/03/01/notes-for-data-analysis</id><content type="html" xml:base="http://localhost:4001/2025/03/01/notes-for-data-analysis.html"><![CDATA[<h2 id="introduction">Introduction</h2>
+
+<p>Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.</p>
 
 <p>I’ll go through some basic do-file structuring practices to make your workflow easier to follow if this is your first time touching a large-ish project in Stata. Even if you feel that replication is not paramount for an undergraduate project (and perhaps it isn’t), it’s still useful to organize your data with that goal in mind, both for your own convenience and for that of your readers’.</p>
 
@@ -257,7 +259,7 @@ Massive. Large windows, very high ceilings, attached to the art school. The coff
 
 <p>To make this easy to follow, I describe a hypothetical project, and then show you how I would organize it. I try to keep this guide as linear as possible, although that is very rarely the case when you actually start getting your hands dirty.</p>
 
-<hr />
+<h2 id="data-organization">Data Organization</h2>
 
 <p><strong>Hypothetical project</strong>: We’re trying to measure the impact of an employment guarantee program on female unemployment rates in the Canadian province of Newfoundland. Assume that we live in a perfect world where the program assignment was randomized, and the government gives us a full dataset of treated and control populations with their demographic details. To help our analysis, we download a zip-code level map of Newfoundland, and a dataset containing household income, number of children and the addresses of everyone enrolled in the program.</p>
 
@@ -294,7 +296,7 @@ Massive. Large windows, very high ceilings, attached to the art school. The coff
 
 <p>Why should you care? First, if there are some glaring econometric issues with how you analyze your data, well documented and replicable files will help someone point them out (and save you tons of trouble). Second, future you is effectively a complete stranger (you will forget why you used that specific transformation two summers ago). Third, it’s good for accountability: you should care about doing research that is transparent and replicable. Think of it as creating a public good.</p>
 
-<hr />
+<h2 id="code-organization">Code Organization</h2>
 
 <p>The way you organize your code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></p>
 
@@ -320,7 +322,7 @@ Massive. Large windows, very high ceilings, attached to the art school. The coff
 
 <p>So what are <code class="language-plaintext highlighter-rouge">master.do</code> and <code class="language-plaintext highlighter-rouge">setup.do</code>? You want a stranger to be able to replicate this code by running a single file (literally at the push of a button), and a master do-file lets you do that. Now that all your data and code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup></p>
 
-<h4 id="setup">setup</h4>
+<h2 id="setupdo"><code class="language-plaintext highlighter-rouge">setup.do</code></h2>
 
 <p>More often than not, people do the following:</p>
 
@@ -346,7 +348,7 @@ global $intermediate_data_dir "$workingdir/1_intermediate_data"
 
 <p>Which saves some space, looks better, and is much more convenient than printing the whole file path over and over. For a typical project, I would create a setup file that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.</p>
 
-<h4 id="master">master</h4>
+<h2 id="masterdo"><code class="language-plaintext highlighter-rouge">master.do</code></h2>
 
 <p>A master do-file sequentially calls every do-file in your project. When you’re working with larger projects, they’re convenient because they save you the trouble of having to individually run files. Coming back to replication, when you finally make your project publicly available your master file lets people run your code at the click of a button instead of having to figure out the right order needed to generate your results. It looks something like this:</p>
 
@@ -375,9 +377,9 @@ A large part of this guide was born out of frustration from watching people clea
   <li>Browse AER papers’ replication packages (for inspiration)</li>
 </ol>
 
-<hr />
+<h2 id="further-reading">Further Reading</h2>
 
-<p><strong>Further Reading:</strong> Some additional resources I use and like</p>
+<p>Some additional resources I use and like</p>
 
 <ol>
   <li><a href="https://ljristovska.com/assets/docs/coding_for_econs_20190221.pdf">Coding for Economists: A Language-Agnostic Guide to Programming for Economists</a></li>
@@ -410,4 +412,4 @@ A large part of this guide was born out of frustration from watching people clea
       <p>You might need to import hundreds of excel sheets from a government database that is regularly updated. Doing this manually would be both painful and a waste of time. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.]]></summary></entry></feed>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Introduction]]></summary></entry></feed>

@@ -18,6 +18,9 @@
 <body>
   <aside class="sidebar">
     <div class="site-title"><a href="/">Esha Vaze</a></div>
+<form class="search-form" id="search-form">
+  <input type="text" class="search-input" id="search-input" placeholder="Search...">
+</form>
 <nav class="sidebar-nav">
   <a href="/" class="">Home</a>
   <a href="/blog/" class="active">Blog</a>
@@ -34,7 +37,7 @@
   <div class="post-content">
     <p>This week at the CETC, I attended <a href="https://mjhmurphy.github.io/">M. Murphy</a>’s talk on optimal review design. This post leans on his paper, <a href="https://mjhmurphy.github.io/files/pdf/ClicksComments_mjHM.pdf">“Clicks or Comments? The quality-quantity trade-off of review systems”</a>, to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.</p>
 
-<hr />
+<h2 id="the-book-selection-problem">The Book-Selection Problem</h2>
 
 <p>I have a decent number of friends who read a lot, and also happen to be tapped into the social-media-literary-scene. For someone who gets most of their books from the seconds store down on Main Street, my exposure to literature that is new and hot is also largely secondhand. I don’t watch short (or long) form content about books, and the only person whose reviews I bother reading are mine (for spelling errors). I do no research before I buy the book, and have developed my current taste in the most informationally inefficient way possible, through haphazard trial-and-error.</p>
 
@@ -67,7 +70,7 @@
 
 <p>So I want to continue to use my Goodreads “look at the average” system, but with some confidence. To do this, I’ll take Murphy’s paper to Goodreads data and compute the optimal rating threshold that determines which books are worth my time.</p>
 
-<hr />
+<h2 id="the-model">The Model</h2>
 
 <p>Assume that the optimal review system is binary, and I want to determine some threshold value $k$ such that all books rated $k’$, for $k \leq k’$, are good, and I should buy them. For simplicity, I’ll stick to the paper’s language and motivate the review threshold decision for the platform, but it doesn’t change the spirit of this exercise.</p>
 
@@ -77,7 +80,7 @@
 
 <p><em>Note:</em> We’ll hand wave over quite a bit of theory, but the key insight here is that the symmetric binary review system is the optimal binary review system if and only if reviewers are sufficiently heterogeneous.</p>
 
-<hr />
+<h2 id="data-and-heterogeneity">Data and Heterogeneity</h2>
 
 <p>We’ll use the same data used to plot <a href="#fig1">Figure 1</a>, and take the model to it. I take the top 1,000 books per genre, from 2010–2017, and use exact per-book star-count histograms from the raw reviews file (individual star ratings 1–5).<br />
 <strong>Sample Selection:</strong> Choosing the top 1,000 books is a necessary evil (although I could sample more). Think of it as imposing a lower bound for $m_b$ on all books.</p>
@@ -106,7 +109,7 @@
   <li>Note that Literary Fiction (which is the genre I happen to care most about) has the most uniform spread across all five stars (8%/14%/25%/30%/23%), resembling an almost flat distribution. <em>The lit-fic distribution is encouraging. If each threshold captures meaningful information, then tastes are sufficiently heterogeneous and we should be able to determine a decision threshold based on averages alone. Things look a little bleak for other genres, where the skew indicates that we might want to pay more attention to the distribution of reviews than the average alone.</em></li>
 </ul>
 
-<hr />
+<h2 id="optimal-thresholds">Optimal Thresholds</h2>
 
 <p>Now that we have a learning rate and have established that the data (for literary fiction) is sufficiently heterogeneous, we want to determine the binary cutoff threshold that will let us pick a good book, solely based on its average rating. If Goodreads replaced its 5-star system with a binary (thumbs-up / thumbs-down) system, what single cutoff point maximises the information the platform retains about book quality?</p>
 
@@ -157,5 +160,49 @@
 </article>
 
   </main>
+  
+  <aside class="toc-sidebar">
+    <nav class="toc-nav">
+      <p class="toc-title">Table of contents</p>
+      <ul class="toc-list" id="toc-list"></ul>
+    </nav>
+  </aside>
+  
+  <script>
+    (function () {
+      var sf = document.getElementById('search-form');
+      if (sf) {
+        sf.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var q = document.getElementById('search-input').value.trim();
+          if (q) window.open('https://www.google.com/search?q=site%3Avaze-esha.github.io+' + encodeURIComponent(q));
+        });
+      }
+
+      var tocList = document.getElementById('toc-list');
+      if (tocList) {
+        var headings = document.querySelectorAll('.post-content h2, .post-content h3');
+        headings.forEach(function (h) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent;
+          if (h.tagName === 'H3') li.classList.add('toc-h3');
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocList.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+              var active = tocList.querySelector('a[href="#' + entry.target.id + '"]');
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+    }());
+  </script>
 </body>
 </html>
