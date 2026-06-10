@@ -348,9 +348,8 @@ hr {
 }
 
 .sidebar-artwork img {
-  width: 85%;
+  width: 100%;
   display: block;
-  margin: 0 auto;
 }
 
 /* ── Site footer ── */
