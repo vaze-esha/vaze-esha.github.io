@@ -16,15 +16,15 @@ body {
   font-family: 'Tiempos', Georgia, 'Times New Roman', serif;
   color: black;
   background-color: white;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.6;
 }
 
 /* ── Sidebar ── */
 
 .sidebar {
-  width: 220px;
-  min-width: 220px;
+  width: 240px;
+  min-width: 240px;
   padding: 2rem 1.25rem;
   border-right: 1px solid #e0e0e0;
   position: sticky;
