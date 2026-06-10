@@ -282,6 +282,61 @@ hr {
   color: #bbb;
 }
 
+/* ── Search results dropdown ── */
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  z-index: 100;
+  max-height: 320px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.search-result-item {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  border-bottom: 1px solid #f4f4f4;
+  color: inherit;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: #f9f9f9;
+}
+
+.search-result-title {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0049DB;
+  margin-bottom: 0.15rem;
+}
+
+.search-result-snippet {
+  display: block;
+  font-size: 0.75rem;
+  color: #777;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ── Sidebar TOC (left sidebar, post pages only) ── */
 
 .sidebar-toc-section {

@@ -16,9 +16,12 @@
   <a href="/funthings/" class="">(Supposedly) Fun Things</a>
 </nav>
 <div class="sidebar-toc-section" id="sidebar-toc-section"></div>
-<form class="search-form" id="search-form">
-  <input type="text" class="search-input" id="search-input" placeholder="Search...">
-</form>
+<div class="search-wrapper">
+  <form class="search-form" id="search-form">
+    <input type="text" class="search-input" id="search-input" placeholder="Search...">
+  </form>
+  <div class="search-results" id="search-results"></div>
+</div>
 
 <div class="sidebar-artwork">
   <img src="/assets/images/escher-gravity.png" alt="M.C. Escher, Gravity">
@@ -63,12 +66,79 @@
   
   <script>
     (function () {
+      var searchData = null;
+      var searchInput = document.getElementById('search-input');
+      var searchResults = document.getElementById('search-results');
+
+      function loadSearchData(cb) {
+        if (searchData) { cb(); return; }
+        fetch('/search.json')
+          .then(function (r) { return r.json(); })
+          .then(function (data) { searchData = data; cb(); })
+          .catch(function () { searchData = []; cb(); });
+      }
+
+      function runSearch(q) {
+        if (!q) { searchResults.style.display = 'none'; return; }
+        var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+        var matches = searchData.filter(function (page) {
+          if (!page.title && !page.content) return false;
+          var haystack = ((page.title || '') + ' ' + (page.content || '')).toLowerCase();
+          return terms.every(function (t) { return haystack.indexOf(t) !== -1; });
+        }).slice(0, 8);
+
+        searchResults.innerHTML = '';
+        if (!matches.length) {
+          searchResults.style.display = 'none';
+          return;
+        }
+        matches.forEach(function (page) {
+          var a = document.createElement('a');
+          a.href = page.url;
+          a.className = 'search-result-item';
+          var title = document.createElement('span');
+          title.className = 'search-result-title';
+          title.textContent = page.title || page.url;
+          a.appendChild(title);
+          var snippet = '';
+          if (page.content) {
+            var idx = page.content.toLowerCase().indexOf(terms[0]);
+            if (idx !== -1) {
+              var start = Math.max(0, idx - 40);
+              snippet = (start > 0 ? '…' : '') + page.content.slice(start, idx + 80).trim() + '…';
+            } else {
+              snippet = page.content.slice(0, 80).trim() + '…';
+            }
+            var small = document.createElement('span');
+            small.className = 'search-result-snippet';
+            small.textContent = snippet;
+            a.appendChild(small);
+          }
+          searchResults.appendChild(a);
+        });
+        searchResults.style.display = 'block';
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var q = searchInput.value.trim();
+          if (!q) { searchResults.style.display = 'none'; return; }
+          loadSearchData(function () { runSearch(q); });
+        });
+        searchInput.addEventListener('focus', function () {
+          if (searchInput.value.trim() && searchData) runSearch(searchInput.value.trim());
+        });
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#search-form') && !e.target.closest('#search-results')) {
+            searchResults.style.display = 'none';
+          }
+        });
+      }
+
       var sf = document.getElementById('search-form');
       if (sf) {
         sf.addEventListener('submit', function (e) {
           e.preventDefault();
-          var q = document.getElementById('search-input').value.trim();
-          if (q) window.open('https://www.google.com/search?q=site%3Avaze-esha.github.io+' + encodeURIComponent(q));
         });
       }
 

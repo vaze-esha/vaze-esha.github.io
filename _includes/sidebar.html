@@ -5,9 +5,12 @@
   <a href="/funthings/" class="{% if page.url contains '/funthings' %}active{% endif %}">(Supposedly) Fun Things</a>
 </nav>
 <div class="sidebar-toc-section" id="sidebar-toc-section"></div>
-<form class="search-form" id="search-form">
-  <input type="text" class="search-input" id="search-input" placeholder="Search...">
-</form>
+<div class="search-wrapper">
+  <form class="search-form" id="search-form">
+    <input type="text" class="search-input" id="search-input" placeholder="Search...">
+  </form>
+  <div class="search-results" id="search-results"></div>
+</div>
 {% unless page.layout == 'post' %}
 <div class="sidebar-artwork">
   <img src="/assets/images/escher-gravity.png" alt="M.C. Escher, Gravity">

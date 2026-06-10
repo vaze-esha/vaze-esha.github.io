@@ -1,0 +1,19 @@
+---
+layout: none
+---
+{% assign all_docs = site.pages | concat: site.posts %}
+{% assign searchable = "" | split: "" %}
+{% for doc in all_docs %}
+  {% unless doc.url contains '/search.json' or doc.url contains '/feed.xml' or doc.url contains '/assets/' %}
+    {% assign searchable = searchable | push: doc %}
+  {% endunless %}
+{% endfor %}
+[
+  {% for doc in searchable %}
+  {
+    "title": {{ doc.title | default: doc.name | jsonify }},
+    "url": {{ doc.url | jsonify }},
+    "content": {{ doc.content | strip_html | normalize_whitespace | truncate: 5000 | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
