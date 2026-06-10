@@ -1,4 +1,7 @@
 <div class="site-title"><a href="/">Esha Vaze</a></div>
+<form class="search-form" id="search-form">
+  <input type="text" class="search-input" id="search-input" placeholder="Search...">
+</form>
 <nav class="sidebar-nav">
   <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
   <a href="/blog/" class="{% if page.url contains '/blog' or page.layout == 'post' %}active{% endif %}">Blog</a>

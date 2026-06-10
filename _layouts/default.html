@@ -22,5 +22,49 @@
   <main class="main-content">
     {{ content }}
   </main>
+  {% if page.layout == 'post' %}
+  <aside class="toc-sidebar">
+    <nav class="toc-nav">
+      <p class="toc-title">Table of contents</p>
+      <ul class="toc-list" id="toc-list"></ul>
+    </nav>
+  </aside>
+  {% endif %}
+  <script>
+    (function () {
+      var sf = document.getElementById('search-form');
+      if (sf) {
+        sf.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var q = document.getElementById('search-input').value.trim();
+          if (q) window.open('https://www.google.com/search?q=site%3Avaze-esha.github.io+' + encodeURIComponent(q));
+        });
+      }
+
+      var tocList = document.getElementById('toc-list');
+      if (tocList) {
+        var headings = document.querySelectorAll('.post-content h2, .post-content h3');
+        headings.forEach(function (h) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + h.id;
+          a.textContent = h.textContent;
+          if (h.tagName === 'H3') li.classList.add('toc-h3');
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              tocList.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+              var active = tocList.querySelector('a[href="#' + entry.target.id + '"]');
+              if (active) active.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-10% 0px -80% 0px' });
+        headings.forEach(function (h) { observer.observe(h); });
+      }
+    }());
+  </script>
 </body>
 </html>

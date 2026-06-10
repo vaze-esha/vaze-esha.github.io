@@ -7,7 +7,7 @@ mathjax: true
 
 This week at the CETC, I attended [M. Murphy](https://mjhmurphy.github.io/)'s talk on optimal review design. This post leans on his paper, ["Clicks or Comments? The quality-quantity trade-off of review systems"](https://mjhmurphy.github.io/files/pdf/ClicksComments_mjHM.pdf), to solve a very pedantic problem. It was written across conference sessions, so errors are both highly likely and entirely my own.
 
----
+## The Book-Selection Problem
 
 I have a decent number of friends who read a lot, and also happen to be tapped into the social-media-literary-scene. For someone who gets most of their books from the seconds store down on Main Street, my exposure to literature that is new and hot is also largely secondhand. I don't watch short (or long) form content about books, and the only person whose reviews I bother reading are mine (for spelling errors). I do no research before I buy the book, and have developed my current taste in the most informationally inefficient way possible, through haphazard trial-and-error.
 
@@ -40,7 +40,7 @@ This is incredibly unhelpful, because 5-star rating systems are right-skewed. Cu
 
 So I want to continue to use my Goodreads "look at the average" system, but with some confidence. To do this, I'll take Murphy's paper to Goodreads data and compute the optimal rating threshold that determines which books are worth my time.
 
----
+## The Model
 
 Assume that the optimal review system is binary, and I want to determine some threshold value $k$ such that all books rated $k'$, for $k \leq k'$, are good, and I should buy them. For simplicity, I'll stick to the paper's language and motivate the review threshold decision for the platform, but it doesn't change the spirit of this exercise.
 
@@ -50,7 +50,7 @@ A key assumption of this model is that the probability a reviewer submits a revi
 
 *Note:* We'll hand wave over quite a bit of theory, but the key insight here is that the symmetric binary review system is the optimal binary review system if and only if reviewers are sufficiently heterogeneous.
 
----
+## Data and Heterogeneity
 
 We'll use the same data used to plot [Figure 1](#fig1), and take the model to it. I take the top 1,000 books per genre, from 2010–2017, and use exact per-book star-count histograms from the raw reviews file (individual star ratings 1–5).  
 **Sample Selection:** Choosing the top 1,000 books is a necessary evil (although I could sample more). Think of it as imposing a lower bound for $m_b$ on all books.
@@ -75,7 +75,7 @@ This is a more informative picture of how user signals are distributed on the pl
 - Young Adult H books have the most extreme 5-star concentration: 57.2% of all H reviews give 5 stars. Non-Fiction and Romance H also exceed 50% at 5 stars. Literary Fiction H is the least concentrated at 5 (47.4%) and has more mass at 3–4 stars. *Young Adult, Non-Fiction, and Romance readers dispense 5-star ratings fairly frequently, which throws a wrench in the $\geq 4$ decision rule. The overall right skew in platform ratings is driven by these genres. Why is this a problem if we expect H books to be better anyway? Ideally, you want the distribution of ratings to be flat (or flat-ish), so that each rating threshold captures meaningful information — in other words, you want tastes to be sufficiently heterogeneous on a 5-star rating system.*
 - Note that Literary Fiction (which is the genre I happen to care most about) has the most uniform spread across all five stars (8%/14%/25%/30%/23%), resembling an almost flat distribution. *The lit-fic distribution is encouraging. If each threshold captures meaningful information, then tastes are sufficiently heterogeneous and we should be able to determine a decision threshold based on averages alone. Things look a little bleak for other genres, where the skew indicates that we might want to pay more attention to the distribution of reviews than the average alone.*
 
----
+## Optimal Thresholds
 
 Now that we have a learning rate and have established that the data (for literary fiction) is sufficiently heterogeneous, we want to determine the binary cutoff threshold that will let us pick a good book, solely based on its average rating. If Goodreads replaced its 5-star system with a binary (thumbs-up / thumbs-down) system, what single cutoff point maximises the information the platform retains about book quality?
 

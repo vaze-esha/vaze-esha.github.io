@@ -4,6 +4,8 @@ title: "Notes for Data Analysis"
 date: 2025-03-01
 ---
 
+## Introduction
+
 Last term, I collected every question that my classmates asked me (as they worked on their theses), and compiled notes to make a little guide that could (potentially) be useful for someone working with economic data for the first time. The primary purpose of this document is to give you some guidance on how to organize your project and manage your do-files in a way that is reproducible and clean.
 
 I'll go through some basic do-file structuring practices to make your workflow easier to follow if this is your first time touching a large-ish project in Stata. Even if you feel that replication is not paramount for an undergraduate project (and perhaps it isn't), it's still useful to organize your data with that goal in mind, both for your own convenience and for that of your readers'.
@@ -28,7 +30,7 @@ My main purpose here is to introduce a replicable format of code and data organi
 
 To make this easy to follow, I describe a hypothetical project, and then show you how I would organize it. I try to keep this guide as linear as possible, although that is very rarely the case when you actually start getting your hands dirty.
 
----
+## Data Organization
 
 **Hypothetical project**: We're trying to measure the impact of an employment guarantee program on female unemployment rates in the Canadian province of Newfoundland. Assume that we live in a perfect world where the program assignment was randomized, and the government gives us a full dataset of treated and control populations with their demographic details. To help our analysis, we download a zip-code level map of Newfoundland, and a dataset containing household income, number of children and the addresses of everyone enrolled in the program.
 
@@ -64,7 +66,7 @@ This makes your data organization easy to follow for someone who has limited con
 
 Why should you care? First, if there are some glaring econometric issues with how you analyze your data, well documented and replicable files will help someone point them out (and save you tons of trouble). Second, future you is effectively a complete stranger (you will forget why you used that specific transformation two summers ago). Third, it's good for accountability: you should care about doing research that is transparent and replicable. Think of it as creating a public good.
 
----
+## Code Organization
 
 The way you organize your code mimics the data storage structure. I recommend creating a repository on GitHub with relevant sub-directories to store all your code.[^4]
 
@@ -91,7 +93,7 @@ project_newfoundland_do  # main code directory
 
 So what are `master.do` and `setup.do`? You want a stranger to be able to replicate this code by running a single file (literally at the push of a button), and a master do-file lets you do that. Now that all your data and code is stored based on its use-case, here are two files you should consider adding to make this workflow easier to run:[^5]
 
-#### setup
+## `setup.do`
 
 More often than not, people do the following:
 
@@ -120,7 +122,7 @@ use "$raw_input_dir/0_1_rct.xlsx"
 
 Which saves some space, looks better, and is much more convenient than printing the whole file path over and over. For a typical project, I would create a setup file that sets all my global data directories, installs any package dependencies, sets any locals that I need, and so on.
 
-#### master
+## `master.do`
 
 A master do-file sequentially calls every do-file in your project. When you're working with larger projects, they're convenient because they save you the trouble of having to individually run files. Coming back to replication, when you finally make your project publicly available your master file lets people run your code at the click of a button instead of having to figure out the right order needed to generate your results. It looks something like this:
 
@@ -148,9 +150,9 @@ Other fun resources you can look at (if you're interested in the general concept
 1. [Institute for Replication](https://i4replication.org/about.html)
 2. Browse AER papers' replication packages (for inspiration)
 
----
+## Further Reading
 
-**Further Reading:** Some additional resources I use and like
+Some additional resources I use and like
 
 1. [Coding for Economists: A Language-Agnostic Guide to Programming for Economists](https://ljristovska.com/assets/docs/coding_for_econs_20190221.pdf)
 2. [An Economist's Guide to Visualizing Data](https://www.aeaweb.org/articles?id=10.1257/jep.28.1.209)
