@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  {% if page.mathjax %}
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  {% endif %}
+</head>
+<body>
+  <aside class="sidebar">
+    {% include sidebar.html %}
+  </aside>
+  <main class="main-content">
+    {{ content }}
+  </main>
+</body>
+</html>

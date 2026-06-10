@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My TODO List — Esha Vaze</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="site-title"><a href="/">Esha Vaze</a></div>
+<nav class="sidebar-nav">
+  <a href="/" class="">Home</a>
+  <a href="/blog/" class="active">Blog</a>
+  <a href="/funthings/" class="">(Supposedly) Fun Things</a>
+</nav>
+
+  </aside>
+  <main class="main-content">
+    <article class="post">
+  <header class="post-header">
+    <h1>My TODO List</h1>
+    <p class="post-date">05/2026</p>
+  </header>
+  <div class="post-content">
+    <p>Instead of using a notebook (or three crumpled receipts), I’ve moved to a TODO setup that lives in my shell config file.</p>
+
+<hr />
+
+<ol>
+  <li>Paste the following block in your shell config file:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># TODO SCRIPT. use as move_todo line_number</span>
+move_todo<span class="o">()</span> <span class="o">{</span>
+    <span class="nb">local </span><span class="nv">linenum</span><span class="o">=</span><span class="nv">$1</span>
+    <span class="nb">local </span><span class="nv">date_today</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +<span class="s2">"%d/%m"</span><span class="si">)</span>
+    <span class="nb">local </span><span class="nv">time_now</span><span class="o">=</span><span class="si">$(</span><span class="nb">date</span> +<span class="s2">"%H%M"</span><span class="si">)</span>
+
+    <span class="c"># Add date header if not already present</span>
+    <span class="k">if</span> <span class="o">!</span> <span class="nb">grep</span> <span class="nt">-q</span> <span class="s2">"^</span><span class="nv">$date_today</span><span class="s2">"</span> <span class="k">done</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$date_today</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="k">done
+    fi</span>
+
+    <span class="c"># Move line with timestamp and checkbox</span>
+    <span class="nb">sed</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">linenum</span><span class="k">}</span><span class="s2">p"</span> todo <span class="se">\</span>
+        | <span class="nb">sed</span> <span class="s2">"s/^</span><span class="se">\[\]</span><span class="s2">/[X] </span><span class="k">${</span><span class="nv">time_now</span><span class="k">}</span><span class="s2">:/"</span> <span class="o">&gt;&gt;</span> <span class="k">done</span>
+
+    <span class="c"># Delete the original line from todo</span>
+    <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">''</span> <span class="s2">"</span><span class="k">${</span><span class="nv">linenum</span><span class="k">}</span><span class="s2">d"</span> todo
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>Make a <code class="language-plaintext highlighter-rouge">todo</code> file and a <code class="language-plaintext highlighter-rouge">done</code> file.</p>
+  </li>
+  <li>
+    <p>Add an item to your <code class="language-plaintext highlighter-rouge">todo</code> list. Some examples:</p>
+  </li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[] post TODO script
+[] drink coffee
+</code></pre></div></div>
+
+<ol>
+  <li>To move an item to the <code class="language-plaintext highlighter-rouge">done</code> list:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>move_todo 1
+</code></pre></div></div>
+
+<ol>
+  <li>The <code class="language-plaintext highlighter-rouge">done</code> file is now updated:</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[X] 0756: post TODO script
+</code></pre></div></div>
+
+<ol>
+  <li>Make sure to change into the directory where your <code class="language-plaintext highlighter-rouge">done</code> and <code class="language-plaintext highlighter-rouge">todo</code> files live before using <code class="language-plaintext highlighter-rouge">move_todo</code>.</li>
+</ol>
+
+  </div>
+</article>
+
+  </main>
+</body>
+</html>

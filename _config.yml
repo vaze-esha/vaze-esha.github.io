@@ -1,0 +1,14 @@
+title: Esha Vaze
+url: "https://vaze-esha.github.io"
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+plugins:
+  - jekyll-feed
+exclude:
+  - old_site/
+  - ratings_read/
+  - Gemfile
+  - Gemfile.lock
+  - "*.DS_Store"
