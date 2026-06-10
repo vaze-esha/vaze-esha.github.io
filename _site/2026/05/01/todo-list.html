@@ -10,14 +10,15 @@
 <body>
   <aside class="sidebar">
     <div class="site-title"><a href="/">Esha Vaze</a></div>
-<form class="search-form" id="search-form">
-  <input type="text" class="search-input" id="search-input" placeholder="Search...">
-</form>
 <nav class="sidebar-nav">
   <a href="/" class="">Home</a>
   <a href="/blog/" class="active">Blog</a>
   <a href="/funthings/" class="">(Supposedly) Fun Things</a>
 </nav>
+<div class="sidebar-toc-section" id="sidebar-toc-section"></div>
+<form class="search-form" id="search-form">
+  <input type="text" class="search-input" id="search-input" placeholder="Search...">
+</form>
 
   </aside>
   <main class="main-content">
@@ -90,14 +91,6 @@ move_todo<span class="o">()</span> <span class="o">{</span>
 </article>
 
   </main>
-  
-  <aside class="toc-sidebar">
-    <nav class="toc-nav">
-      <p class="toc-title">Table of contents</p>
-      <ul class="toc-list" id="toc-list"></ul>
-    </nav>
-  </aside>
-  
   <script>
     (function () {
       var sf = document.getElementById('search-form');
@@ -109,28 +102,39 @@ move_todo<span class="o">()</span> <span class="o">{</span>
         });
       }
 
-      var tocList = document.getElementById('toc-list');
-      if (tocList) {
+      var tocSection = document.getElementById('sidebar-toc-section');
+      if (tocSection && document.querySelector('.post-content')) {
         var headings = document.querySelectorAll('.post-content h2, .post-content h3');
-        headings.forEach(function (h) {
-          var li = document.createElement('li');
-          var a = document.createElement('a');
-          a.href = '#' + h.id;
-          a.textContent = h.textContent;
-          if (h.tagName === 'H3') li.classList.add('toc-h3');
-          li.appendChild(a);
-          tocList.appendChild(li);
-        });
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              tocList.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
-              var active = tocList.querySelector('a[href="#' + entry.target.id + '"]');
-              if (active) active.classList.add('active');
-            }
+        if (headings.length) {
+          var label = document.createElement('p');
+          label.className = 'toc-title';
+          label.textContent = 'On this page';
+          tocSection.appendChild(label);
+
+          var ul = document.createElement('ul');
+          ul.className = 'toc-list';
+          headings.forEach(function (h) {
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            if (h.tagName === 'H3') li.classList.add('toc-h3');
+            li.appendChild(a);
+            ul.appendChild(li);
           });
-        }, { rootMargin: '-10% 0px -80% 0px' });
-        headings.forEach(function (h) { observer.observe(h); });
+          tocSection.appendChild(ul);
+
+          var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                ul.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+                var active = ul.querySelector('a[href="#' + entry.target.id + '"]');
+                if (active) active.classList.add('active');
+              }
+            });
+          }, { rootMargin: '-10% 0px -80% 0px' });
+          headings.forEach(function (h) { observer.observe(h); });
+        }
       }
     }());
   </script>
