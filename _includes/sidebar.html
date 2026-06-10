@@ -8,3 +8,8 @@
 <form class="search-form" id="search-form">
   <input type="text" class="search-input" id="search-input" placeholder="Search...">
 </form>
+{% unless page.layout == 'post' %}
+<div class="sidebar-artwork">
+  <img src="/assets/images/escher-gravity.png" alt="M.C. Escher, Gravity">
+</div>
+{% endunless %}

@@ -22,6 +22,11 @@
   <main class="main-content">
     {{ content }}
   </main>
+  {% unless page.layout == 'post' %}
+  <footer class="site-footer">
+    M.C. Escher, &#8220;Gravity&#8221; &mdash; <a href="https://www.digitalcommonwealth.org/search?f%5Bcollection_name_ssim%5D%5B%5D=M.+C.+Escher+%281898-1972%29.+Prints+and+Drawings&f%5Binstitution_name_ssi%5D%5B%5D=Boston+Public+Library">Boston Public Library Digital Commonwealth</a>
+  </footer>
+  {% endunless %}
   <script>
     (function () {
       var sf = document.getElementById('search-form');
