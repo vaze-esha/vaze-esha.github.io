@@ -33,7 +33,7 @@ A collection of things that I've enjoyed reading/perusing, especially when I was
 - [McSweeney's Internet Tendency](https://www.mcsweeneys.net/)
 - [Canadian Outdoor Adventure Blog](https://mariaadey.com/about-2/)
 - [Love Machine Cycling](https://www.lovemachinecycling.ca/)
-- [Escher Drawings](https://kottke.org/18/05/an-online-collection-of-high-res-scans-of-mc-eschers-prints)
+- [Escher Drawings](https://www.digitalcommonwealth.org/search?f%5Bcollection_name_ssim%5D%5B%5D=M.+C.+Escher+%281898-1972%29.+Prints+and+Drawings&f%5Binstitution_name_ssi%5D%5B%5D=Boston+Public+Library)
 
 **Pro-HTML Content**
 
