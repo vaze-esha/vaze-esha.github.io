@@ -212,12 +212,15 @@ figcaption {
   line-height: 1.4;
 }
 
-/* Footnotes (Kramdown generates .footnotes) */
+/* Footnotes (Kramdown generates .footnotes with its own <hr> inside) */
+.footnotes > hr {
+  display: none;
+}
+
 .footnotes {
   font-size: 0.85rem;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
   color: black;
-  border-top: 1px solid #aaa;
   padding-top: 0.5rem;
 }
 
