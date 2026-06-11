@@ -9,6 +9,7 @@ plugins:
 exclude:
   - old_site/
   - ratings_read/
+  - missiles/
   - Gemfile
   - Gemfile.lock
   - "*.DS_Store"

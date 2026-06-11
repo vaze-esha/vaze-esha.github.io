@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ballistic Missiles and Democratic Vote Shares — Esha Vaze</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="site-title"><a href="/">Esha Vaze</a></div>
+<nav class="sidebar-nav">
+  <a href="/" class="">Home</a>
+  <a href="/blog/" class="active">Blog</a>
+  <a href="/funthings/" class="">(Supposedly) Fun Things</a>
+</nav>
+<div class="sidebar-toc-section" id="sidebar-toc-section"></div>
+<div class="search-wrapper">
+  <form class="search-form" id="search-form">
+    <input type="text" class="search-input" id="search-input" placeholder="Search...">
+  </form>
+  <div class="search-results" id="search-results"></div>
+</div>
+
+
+  </aside>
+  <main class="main-content">
+    <article class="post">
+  <header class="post-header">
+    <h1>Ballistic Missiles and Democratic Vote Shares</h1>
+    <p class="post-date">06/2026</p>
+  </header>
+  <div class="post-content">
+    <p>A while back, I was asked to find an exogenous predictor of popular support for Kennedy’s Moonshot program.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>
+Specifically, we wanted to isolate the causal effect of public R&amp;D funding on voting outcomes (both Gallup and federal election votes in favour of the Democrats) at the county level. We’ll look at a very simple regression:</p>
+
+\[\text{DemVotePct}_{c, t} = \beta \, \text{R\&amp;DFunds}_{c, t} + \varepsilon_{c, t}\]
+
+<p>The outcome is county-level vote shares in favour of the Democrats, or Gallup survey questions that ask about approval for the Moonshot program specifically. Naturally, the regression above is far from causality, which necessitates a clean source of exogenous variation in vote share.</p>
+
+<p>The following notes are from an internal memo which uses ballistic missiles as an instrument for public R&amp;D funding. This line of investigation has now been put on hold (in favour of qualitative research), so this work is doomed to live on my website until I have time to pick it back up (highly unlikely). The bulk of this document is unchanged from when it was first circulated to my team. I’ve taken the liberty of adding some more context here for the unfamiliar reader.</p>
+
+<hr />
+
+<h2 id="cold-war-anxiety">Cold War Anxiety</h2>
+
+<blockquote>
+  <p><strong>From Roger D. Launius, “Public Opinion Polls and Perceptions of US Human Spaceflight”:</strong> Consistently throughout the 1960s a majority of Americans did not believe Apollo was worth the cost, with the one exception being a poll taken at the time of the Apollo 11 lunar landing in July 1969. Consistently throughout the decade, 45–60 percent of Americans believed that the government was spending too much on space, indicative of a lack of commitment to the spaceflight agenda.</p>
+
+  <p><em>The decision to proceed with Apollo was not made because it was enormously popular with the public, despite general acquiescence, but for hard-edged political reasons. Most of these were related to the Cold War crises of the early 1960s, in which spaceflight served as a surrogate for face-to-face military confrontation.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>From Kantor and Whalley:</strong> Modern commentators contend that space-race research had particularly high returns because NASA’s organization was highly effective at research coordination and the intrinsic geopolitical motivation encouraged scientists to exert high levels of effort (Mazzucato 2021). Those advocating for significant government spending to jumpstart innovation and economic growth often call for a new “Sputnik Moment,” harkening back to a time when the US devoted significant resources racing the Soviet Union to the Moon (Gruber and Johnson 2019).</p>
+</blockquote>
+
+<p>If we are inclined to believe the above evidence, then America’s aspirations for the Moon were a direct consequence of its rivalry with the Soviets. The degree of threat posed by the USSR’s stellar scientific achievements pushed the US to try and gather some of its own. Then, if our outcome is support for the Moon landing, an exogenous source of variation for support at the county level could be exposure to the Cold War.</p>
+
+<p>Assume that the driving force behind federal pursuit of the Moonshot is US hegemony over the USSR. We then extend this assumption to the general public—counties with more exposure to the Cold War (perceived “Soviet threat”) are more likely to support the Moonshot.</p>
+
+<p><strong>How do we measure exposure to the Cold War?</strong></p>
+
+<ol>
+  <li>Distance to the nearest <a href="https://www.nicap.org/ncp/sac.htm">Strategic Air Command (SAC)</a> base. Closer counties faced higher perceived first-strike risk and had more defense-oriented populations, which would translate to higher support for all national endeavours intended to beat the Soviets.</li>
+  <li>Similarly, <a href="https://alcpress.org/military/icbm/history.html">ICBM silos</a>. We compute the centroid distance of a county from ICBM silos, or silo density in the state. This is plausible, because silo location is almost certainly orthogonal to political support for the Moonshot program, or the Democratic administration.</li>
+  <li><a href="https://ed-thelen.org/loc.html">Nike missiles</a> (similar to SAC/ICBM).</li>
+</ol>
+
+<p><strong>Table 1: Cold War Defense Infrastructure Layers</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th># of Sites</th>
+      <th>Geographic Distribution</th>
+      <th>Salience to Public</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ICBM silos</td>
+      <td>~1,200</td>
+      <td>Rural Great Plains</td>
+      <td>High (nuclear strike fear)</td>
+    </tr>
+    <tr>
+      <td>Nike batteries</td>
+      <td>~265</td>
+      <td>Urban/suburban rings</td>
+      <td>Very high (visible, near homes)</td>
+    </tr>
+    <tr>
+      <td>SAC bases</td>
+      <td>~50</td>
+      <td>Dispersed, rural</td>
+      <td>Moderate</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>From “The Military Standard”:</strong> The missile program also brought the Cold War home to many Americans. To farmers in the Great Plains, the Cold War suddenly came to life when the Air Force built Minuteman silos among their wheat fields. The Army’s Nike missile sites provided an even more striking reminder: many of these batteries were located near the most densely populated areas in the nation, and they provided graphic testimony to the severity of the conflict between the United States and Soviet Union.</p>
+
+  <p>There were important economic implications as well. The missile program brought sudden prosperity to sleepy towns like White Sands, New Mexico, and Huntsville, Alabama. Across the nation, tens of thousands of Americans found work building the complex missiles and huge launch facilities that would house the new weapons.</p>
+</blockquote>
+
+<p><strong>Data:</strong></p>
+
+<ol>
+  <li>Scrape missile location data (county level)</li>
+  <li>Download <a href="https://uselectionatlas.org/">county-level election data</a></li>
+  <li>Merge (1) &amp; (2) with Kantor and Whalley NASA contractor spending data (public R&amp;D data)</li>
+</ol>
+
+<p>Again, <strong>from Roger D. Launius:</strong></p>
+
+<blockquote>
+  <p>The following year Newsweek echoed the Times story, stating: “The US space program is in decline. The Vietnam War and the desperate conditions of the nation’s poor and its cities—which make space flight seem, in comparison, like an embarrassing national self-indulgence—have combined to drag down a program where the sky was no longer the limit.”</p>
+</blockquote>
+
+<h2 id="testing-the-reduced-form">Testing the Reduced Form</h2>
+
+<p>We’ll run the following reduced-form regressions to test the channel:</p>
+
+\[\text{Proximity to Missiles} \longrightarrow \text{Perceived Soviet Threat} \longrightarrow \text{Moonshot Support}\]
+
+<p>Instead of using a 2SLS design, I simply test if distance to missiles is a predictor of vote shares in favour of the Democrats.</p>
+
+<p>I split Nike missiles and ICBM missiles, because the former are urban and the latter are rural.</p>
+
+\[\text{DemVotePct}_{c,t} = \beta_1 \, \text{CentDist\_ICBM}_{c} + \gamma_s + \varepsilon_{c,t}\]
+
+<p>Counties that are closer to missile silos have a “higher perceived threat” of the Cold War by virtue of proximity to the military-industrial complex. My prior is that proximity to missiles implies stronger support for the Moonshot program, and the mechanism is salience. Having a missile in your backyard makes the Cold War a more tangible threat, inspiring support for the Moon landing, which was marketed as a nationally coordinated effort to beat Russia on a new frontier.</p>
+
+<p>To empirically test this, I use centroid distance to the nearest missile to predict vote shares. This is the reduced form. Eventually, we would like to use the distance to missile as an instrument for Public R&amp;D and military spending.</p>
+
+<h3 id="icbm-distance">ICBM Distance</h3>
+
+<p><strong>Table 2: Presidential Elections — Distance to Nearest ICBM and Vote Share</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Democrat</th>
+      <th>Republican</th>
+      <th>Other</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Std. dist. to nearest missile</td>
+      <td>-1.510**</td>
+      <td>1.957***</td>
+      <td>-0.527**</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>(0.616)</td>
+      <td>(0.624)</td>
+      <td>(0.230)</td>
+    </tr>
+    <tr>
+      <td>Observations</td>
+      <td>2,028</td>
+      <td>2,028</td>
+      <td>2,028</td>
+    </tr>
+    <tr>
+      <td>R²</td>
+      <td>0.768</td>
+      <td>0.638</td>
+      <td>0.965</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Notes:</em> Standard errors clustered at the county level in parentheses. State fixed effects included. *p &lt; 0.10, **p &lt; 0.05, ***p &lt; 0.01.</p>
+
+<p><strong>Presidential elections:</strong> A <strong>1 SD increase in distance to the nearest missile site</strong> is associated with a <strong>1.5 percentage point decrease</strong> in Democrat vote share, a <strong>2.0 percentage point increase</strong> in Republican vote share, and a <strong>0.5 percentage point decrease</strong> in Other vote share. All of these estimates are statistically significant.</p>
+
+<p><strong>Table 3: Congressional Elections — Distance to Nearest ICBM and Vote Share</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Democrat</th>
+      <th>Republican</th>
+      <th>Other</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Std. dist. to nearest missile</td>
+      <td>-3.187</td>
+      <td>9.776***</td>
+      <td>1.756</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>(2.194)</td>
+      <td>(2.220)</td>
+      <td>(2.100)</td>
+    </tr>
+    <tr>
+      <td>Observations</td>
+      <td>2,028</td>
+      <td>2,028</td>
+      <td>2,028</td>
+    </tr>
+    <tr>
+      <td>R²</td>
+      <td>0.749</td>
+      <td>0.752</td>
+      <td>0.752</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Notes:</em> Standard errors clustered at the county level in parentheses. State fixed effects included. *p &lt; 0.10, **p &lt; 0.05, ***p &lt; 0.01.</p>
+
+<p><strong>Congressional elections:</strong> A <strong>1 SD increase in distance to the nearest missile site</strong> is associated with a <strong>3.2 percentage point decrease</strong> in Democrat vote share, a <strong>9.8 percentage point increase</strong> in Republican vote share, and a <strong>1.8 percentage point increase</strong> in Other vote share. Republican estimates are statistically significant.</p>
+
+<p>Counties that are farther away from a missile show reduced support for Democrats, and increased support for Republicans. They also show reduced support for other candidates, and estimates for Republican votes are statistically significant.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The key idea here is that missile placement is quasi-random to electoral politics (silo establishment is likely uncorrelated with local politics, and historical documents show that missile location choice has little to do with political lobbying).</p>
+
+  <p>I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. This tests if the hypothesized channel has heterogeneous effects by urbanization, or if our results are just picking up an urban/rural divide in partisanship.</p>
+</blockquote>
+
+<h3 id="nike-missile-distance">Nike Missile Distance</h3>
+
+<p><strong>Table 4: Presidential Elections — Distance to Nearest Nike Missile and Vote Share</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Democrat</th>
+      <th>Republican</th>
+      <th>Other</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Std. dist. to nearest missile</td>
+      <td>0.749**</td>
+      <td>-0.674*</td>
+      <td>-0.143</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>(0.346)</td>
+      <td>(0.350)</td>
+      <td>(0.092)</td>
+    </tr>
+    <tr>
+      <td>Observations</td>
+      <td>2,028</td>
+      <td>2,028</td>
+      <td>2,028</td>
+    </tr>
+    <tr>
+      <td>R²</td>
+      <td>0.768</td>
+      <td>0.637</td>
+      <td>0.964</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Notes:</em> Standard errors clustered at the county level in parentheses. State fixed effects included. *p &lt; 0.10, **p &lt; 0.05, ***p &lt; 0.01.</p>
+
+<p><strong>Presidential elections:</strong> A <strong>1 SD increase in distance to the nearest Nike missile site</strong> is associated with a <strong>0.7 percentage point increase</strong> in Democrat vote share, a <strong>0.7 percentage point decrease</strong> in Republican vote share, and a <strong>0.1 percentage point decrease</strong> in Other vote share. Democrat and Republican estimates are statistically significant.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> The opposite direction of effects for Nike missiles (compared to ICBMs) suggests that urban–rural heterogeneity is worth considering (even for downstream analyses with survey data).</p>
+</blockquote>
+
+<p><strong>Table 5: Congressional Elections — Distance to Nearest Nike Missile and Vote Share</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Democrat</th>
+      <th>Republican</th>
+      <th>Other</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Std. dist. to nearest missile</td>
+      <td>-8.983***</td>
+      <td>-3.780</td>
+      <td>-6.674***</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>(2.398)</td>
+      <td>(2.439)</td>
+      <td>(2.498)</td>
+    </tr>
+    <tr>
+      <td>Observations</td>
+      <td>2,028</td>
+      <td>2,028</td>
+      <td>2,028</td>
+    </tr>
+    <tr>
+      <td>R²</td>
+      <td>0.751</td>
+      <td>0.751</td>
+      <td>0.753</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Notes:</em> Standard errors clustered at the county level in parentheses. State fixed effects included. *p &lt; 0.10, **p &lt; 0.05, ***p &lt; 0.01.</p>
+
+<p><strong>Congressional elections:</strong> A <strong>1 SD increase in distance to the nearest Nike missile site</strong> is associated with a <strong>9.0 percentage point decrease</strong> in Democrat vote share, a <strong>3.8 percentage point decrease</strong> in Republican vote share, and a <strong>6.7 percentage point decrease</strong> in Other vote share. Democrat and Other estimates are statistically significant.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The reduced form behaves roughly as the salience story predicts: counties closer to ICBM silos voted more Democratic in presidential elections, consistent with proximity to the military-industrial complex making the Cold War—and the administration’s response to it—a more tangible concern. The Nike results complicate the picture. In presidential elections the sign flips, which suggests that some of what we are picking up is an urban/rural divide in partisanship rather than the perceived-threat channel alone. Any serious version of this design would need to confront that heterogeneity directly.</p>
+
+<p>Still, the ingredients for an instrument are here. Missile placement is plausibly quasi-random with respect to local electoral politics, distance to the nearest site predicts vote shares, and the proposed mechanism (salience of the Soviet threat) is consistent with the historical record. The natural next step is the 2SLS design sketched above: use distance to missiles as an instrument for public R&amp;D and military spending, with Gallup approval of the Moonshot program as the outcome. That step is on hold, along with the rest of this project—but if the reduced form is any indication, it would be worth taking.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>The Moonshot program refers to President John F. Kennedy’s 1961 challenge to land a man on the Moon and return him safely to the Earth. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+
+  </main>
+  
+  <script>
+    (function () {
+      var searchData = null;
+      var searchInput = document.getElementById('search-input');
+      var searchResults = document.getElementById('search-results');
+
+      function loadSearchData(cb) {
+        if (searchData) { cb(); return; }
+        fetch('/search.json')
+          .then(function (r) { return r.json(); })
+          .then(function (data) { searchData = data; cb(); })
+          .catch(function () { searchData = []; cb(); });
+      }
+
+      function runSearch(q) {
+        if (!q) { searchResults.style.display = 'none'; return; }
+        var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+        var matches = searchData.filter(function (page) {
+          if (!page.title && !page.content) return false;
+          var haystack = ((page.title || '') + ' ' + (page.content || '')).toLowerCase();
+          return terms.every(function (t) { return haystack.indexOf(t) !== -1; });
+        }).slice(0, 8);
+
+        searchResults.innerHTML = '';
+        if (!matches.length) {
+          searchResults.style.display = 'none';
+          return;
+        }
+        matches.forEach(function (page) {
+          var a = document.createElement('a');
+          a.href = page.url;
+          a.className = 'search-result-item';
+          var title = document.createElement('span');
+          title.className = 'search-result-title';
+          title.textContent = page.title || page.url;
+          a.appendChild(title);
+          var snippet = '';
+          if (page.content) {
+            var idx = page.content.toLowerCase().indexOf(terms[0]);
+            if (idx !== -1) {
+              var start = Math.max(0, idx - 40);
+              snippet = (start > 0 ? '…' : '') + page.content.slice(start, idx + 80).trim() + '…';
+            } else {
+              snippet = page.content.slice(0, 80).trim() + '…';
+            }
+            var small = document.createElement('span');
+            small.className = 'search-result-snippet';
+            small.textContent = snippet;
+            a.appendChild(small);
+          }
+          searchResults.appendChild(a);
+        });
+        searchResults.style.display = 'block';
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var q = searchInput.value.trim();
+          if (!q) { searchResults.style.display = 'none'; return; }
+          loadSearchData(function () { runSearch(q); });
+        });
+        searchInput.addEventListener('focus', function () {
+          if (searchInput.value.trim() && searchData) runSearch(searchInput.value.trim());
+        });
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#search-form') && !e.target.closest('#search-results')) {
+            searchResults.style.display = 'none';
+          }
+        });
+      }
+
+      var sf = document.getElementById('search-form');
+      if (sf) {
+        sf.addEventListener('submit', function (e) {
+          e.preventDefault();
+        });
+      }
+
+      var tocSection = document.getElementById('sidebar-toc-section');
+      if (tocSection && document.querySelector('.post-content')) {
+        var headings = document.querySelectorAll('.post-content h2, .post-content h3');
+        if (headings.length) {
+          var label = document.createElement('p');
+          label.className = 'toc-title';
+          label.textContent = 'On this page';
+          tocSection.appendChild(label);
+
+          var ul = document.createElement('ul');
+          ul.className = 'toc-list';
+          headings.forEach(function (h) {
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            if (h.tagName === 'H3') li.classList.add('toc-h3');
+            li.appendChild(a);
+            ul.appendChild(li);
+          });
+          tocSection.appendChild(ul);
+
+          var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                ul.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+                var active = ul.querySelector('a[href="#' + entry.target.id + '"]');
+                if (active) active.classList.add('active');
+              }
+            });
+          }, { rootMargin: '-10% 0px -80% 0px' });
+          headings.forEach(function (h) { observer.observe(h); });
+        }
+      }
+    }());
+  </script>
+</body>
+</html>
