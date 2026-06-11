@@ -20,11 +20,11 @@ The following notes are from an internal memo which uses ballistic missiles as a
 
 ## Cold War Anxiety
 
-> **From Roger D. Launius, "Public Opinion Polls and Perceptions of US Human Spaceflight":** Consistently throughout the 1960s a majority of Americans did not believe Apollo was worth the cost, with the one exception being a poll taken at the time of the Apollo 11 lunar landing in July 1969. Consistently throughout the decade, 45–60 percent of Americans believed that the government was spending too much on space, indicative of a lack of commitment to the spaceflight agenda.
->
-> *The decision to proceed with Apollo was not made because it was enormously popular with the public, despite general acquiescence, but for hard-edged political reasons. Most of these were related to the Cold War crises of the early 1960s, in which spaceflight served as a surrogate for face-to-face military confrontation.*
+**From Roger D. Launius, "Public Opinion Polls and Perceptions of US Human Spaceflight":** Consistently throughout the 1960s a majority of Americans did not believe Apollo was worth the cost, with the one exception being a poll taken at the time of the Apollo 11 lunar landing in July 1969. Consistently throughout the decade, 45–60 percent of Americans believed that the government was spending too much on space, indicative of a lack of commitment to the spaceflight agenda.
 
-> **From Kantor and Whalley:** Modern commentators contend that space-race research had particularly high returns because NASA's organization was highly effective at research coordination and the intrinsic geopolitical motivation encouraged scientists to exert high levels of effort (Mazzucato 2021). Those advocating for significant government spending to jumpstart innovation and economic growth often call for a new "Sputnik Moment," harkening back to a time when the US devoted significant resources racing the Soviet Union to the Moon (Gruber and Johnson 2019).
+*The decision to proceed with Apollo was not made because it was enormously popular with the public, despite general acquiescence, but for hard-edged political reasons. Most of these were related to the Cold War crises of the early 1960s, in which spaceflight served as a surrogate for face-to-face military confrontation.*
+
+**From Kantor and Whalley:** Modern commentators contend that space-race research had particularly high returns because NASA's organization was highly effective at research coordination and the intrinsic geopolitical motivation encouraged scientists to exert high levels of effort (Mazzucato 2021). Those advocating for significant government spending to jumpstart innovation and economic growth often call for a new "Sputnik Moment," harkening back to a time when the US devoted significant resources racing the Soviet Union to the Moon (Gruber and Johnson 2019).
 
 If we are inclined to believe the above evidence, then America's aspirations for the Moon were a direct consequence of its rivalry with the Soviets. The degree of threat posed by the USSR's stellar scientific achievements pushed the US to try and gather some of its own. Then, if our outcome is support for the Moon landing, an exogenous source of variation for support at the county level could be exposure to the Cold War.
 
@@ -44,9 +44,9 @@ Assume that the driving force behind federal pursuit of the Moonshot is US hegem
 | Nike batteries | ~265 | Urban/suburban rings | Very high (visible, near homes) |
 | SAC bases | ~50 | Dispersed, rural | Moderate |
 
-> **From "The Military Standard":** The missile program also brought the Cold War home to many Americans. To farmers in the Great Plains, the Cold War suddenly came to life when the Air Force built Minuteman silos among their wheat fields. The Army's Nike missile sites provided an even more striking reminder: many of these batteries were located near the most densely populated areas in the nation, and they provided graphic testimony to the severity of the conflict between the United States and Soviet Union.
->
-> There were important economic implications as well. The missile program brought sudden prosperity to sleepy towns like White Sands, New Mexico, and Huntsville, Alabama. Across the nation, tens of thousands of Americans found work building the complex missiles and huge launch facilities that would house the new weapons.
+**From "The Military Standard":** The missile program also brought the Cold War home to many Americans. To farmers in the Great Plains, the Cold War suddenly came to life when the Air Force built Minuteman silos among their wheat fields. The Army's Nike missile sites provided an even more striking reminder: many of these batteries were located near the most densely populated areas in the nation, and they provided graphic testimony to the severity of the conflict between the United States and Soviet Union.
+
+There were important economic implications as well. The missile program brought sudden prosperity to sleepy towns like White Sands, New Mexico, and Huntsville, Alabama. Across the nation, tens of thousands of Americans found work building the complex missiles and huge launch facilities that would house the new weapons.
 
 **Data:**
 
@@ -56,7 +56,7 @@ Assume that the driving force behind federal pursuit of the Moonshot is US hegem
 
 Again, **from Roger D. Launius:**
 
-> The following year Newsweek echoed the Times story, stating: "The US space program is in decline. The Vietnam War and the desperate conditions of the nation's poor and its cities—which make space flight seem, in comparison, like an embarrassing national self-indulgence—have combined to drag down a program where the sky was no longer the limit."
+The following year Newsweek echoed the Times story, stating: "The US space program is in decline. The Vietnam War and the desperate conditions of the nation's poor and its cities—which make space flight seem, in comparison, like an embarrassing national self-indulgence—have combined to drag down a program where the sky was no longer the limit."
 
 ## Testing the Reduced Form
 
@@ -108,9 +108,9 @@ To empirically test this, I use centroid distance to the nearest missile to pred
 
 Counties that are farther away from a missile show reduced support for Democrats, and increased support for Republicans. They also show reduced support for other candidates, and estimates for Republican votes are statistically significant.
 
-> **Note:** The key idea here is that missile placement is quasi-random to electoral politics (silo establishment is likely uncorrelated with local politics, and historical documents show that missile location choice has little to do with political lobbying).
->
-> I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. This tests if the hypothesized channel has heterogeneous effects by urbanization, or if our results are just picking up an urban/rural divide in partisanship.
+**Note:** The key idea here is that missile placement is quasi-random to electoral politics (silo establishment is likely uncorrelated with local politics, and historical documents show that missile location choice has little to do with political lobbying).
+
+I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. This tests if the hypothesized channel has heterogeneous effects by urbanization, or if our results are just picking up an urban/rural divide in partisanship.
 
 ### Nike Missile Distance
 
@@ -127,7 +127,7 @@ Counties that are farther away from a missile show reduced support for Democrats
 
 **Presidential elections:** A **1 SD increase in distance to the nearest Nike missile site** is associated with a **0.7 percentage point increase** in Democrat vote share, a **0.7 percentage point decrease** in Republican vote share, and a **0.1 percentage point decrease** in Other vote share. Democrat and Republican estimates are statistically significant.
 
-> **Note:** The opposite direction of effects for Nike missiles (compared to ICBMs) suggests that urban–rural heterogeneity is worth considering (even for downstream analyses with survey data).
+**Note:** The opposite direction of effects for Nike missiles (compared to ICBMs) suggests that urban–rural heterogeneity is worth considering (even for downstream analyses with survey data).
 
 **Table 5: Congressional Elections — Distance to Nearest Nike Missile and Vote Share**
 
