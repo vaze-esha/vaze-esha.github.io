@@ -196,6 +196,29 @@ pre code {
   border-radius: 0;
 }
 
+/* Tables */
+.post-content table {
+  border-collapse: collapse;
+  margin: 1.8em auto;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.post-content th,
+.post-content td {
+  border: 1px solid #bbb;
+  padding: 0.45em 0.9em;
+}
+
+.post-content th {
+  background-color: #f4f4f4;
+  font-family: 'Inter', sans-serif;
+}
+
+.post-content td:first-child {
+  text-align: left;
+}
+
 /* Figures */
 figure {
   margin: 1.8em 0;
