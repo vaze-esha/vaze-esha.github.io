@@ -43,7 +43,7 @@
     <p>A while back, I was asked to find an exogenous predictor of popular support for Kennedy’s Moonshot program.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>
 Specifically, we wanted to isolate the causal effect of public R&amp;D funding on voting outcomes (both Gallup and federal election votes in favour of the Democrats) at the county level. We’ll look at a very simple regression:</p>
 
-\[\text{DemVotePct}_{c, t} = \beta \, \text{R\&amp;DFunds}_{c, t} + \varepsilon_{c, t}\]
+\[\text{DemVotePct}_{c, t} = \beta \, \text{RDFunds}_{c, t} + \varepsilon_{c, t}\]
 
 <p>The outcome is county-level vote shares in favour of the Democrats, or Gallup survey questions that ask about approval for the Moonshot program specifically. Naturally, the regression above is far from causality, which necessitates a clean source of exogenous variation in vote share.</p>
 
@@ -53,23 +53,27 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
 
 <h2 id="cold-war-anxiety">Cold War Anxiety</h2>
 
-<p><strong>From Roger D. Launius, “Public Opinion Polls and Perceptions of US Human Spaceflight”:</strong> Consistently throughout the 1960s a majority of Americans did not believe Apollo was worth the cost, with the one exception being a poll taken at the time of the Apollo 11 lunar landing in July 1969. Consistently throughout the decade, 45–60 percent of Americans believed that the government was spending too much on space, indicative of a lack of commitment to the spaceflight agenda.</p>
+<p><strong>From Roger D. Launius, “Public Opinion Polls and Perceptions of US Human Spaceflight”:</strong><sup id="fnref:launius" role="doc-noteref"><a href="#fn:launius" class="footnote" rel="footnote">2</a></sup> Consistently throughout the 1960s a majority of Americans did not believe Apollo was worth the cost, with the one exception being a poll taken at the time of the Apollo 11 lunar landing in July 1969. Consistently throughout the decade, 45–60 percent of Americans believed that the government was spending too much on space, indicative of a lack of commitment to the spaceflight agenda.</p>
 
 <p><em>The decision to proceed with Apollo was not made because it was enormously popular with the public, despite general acquiescence, but for hard-edged political reasons. Most of these were related to the Cold War crises of the early 1960s, in which spaceflight served as a surrogate for face-to-face military confrontation.</em></p>
 
-<p><strong>From Kantor and Whalley:</strong> Modern commentators contend that space-race research had particularly high returns because NASA’s organization was highly effective at research coordination and the intrinsic geopolitical motivation encouraged scientists to exert high levels of effort (Mazzucato 2021). Those advocating for significant government spending to jumpstart innovation and economic growth often call for a new “Sputnik Moment,” harkening back to a time when the US devoted significant resources racing the Soviet Union to the Moon (Gruber and Johnson 2019).</p>
+<p><strong>From Kantor and Whalley:</strong><sup id="fnref:kw" role="doc-noteref"><a href="#fn:kw" class="footnote" rel="footnote">3</a></sup> Modern commentators contend that space-race research had particularly high returns because NASA’s organization was highly effective at research coordination and the intrinsic geopolitical motivation encouraged scientists to exert high levels of effort (Mazzucato 2021).<sup id="fnref:mazzucato" role="doc-noteref"><a href="#fn:mazzucato" class="footnote" rel="footnote">4</a></sup> Those advocating for significant government spending to jumpstart innovation and economic growth often call for a new “Sputnik Moment,” harkening back to a time when the US devoted significant resources racing the Soviet Union to the Moon (Gruber and Johnson 2019).<sup id="fnref:gj" role="doc-noteref"><a href="#fn:gj" class="footnote" rel="footnote">5</a></sup></p>
 
 <p>If we are inclined to believe the above evidence, then America’s aspirations for the Moon were a direct consequence of its rivalry with the Soviets. The degree of threat posed by the USSR’s stellar scientific achievements pushed the US to try and gather some of its own. Then, if our outcome is support for the Moon landing, an exogenous source of variation for support at the county level could be exposure to the Cold War.</p>
 
 <p>Assume that the driving force behind federal pursuit of the Moonshot is US hegemony over the USSR. We then extend this assumption to the general public—counties with more exposure to the Cold War (perceived “Soviet threat”) are more likely to support the Moonshot.</p>
 
-<p><strong>How do we measure exposure to the Cold War?</strong></p>
+<hr />
 
-<ol>
-  <li>Distance to the nearest <a href="https://www.nicap.org/ncp/sac.htm">Strategic Air Command (SAC)</a> base. Closer counties faced higher perceived first-strike risk and had more defense-oriented populations, which would translate to higher support for all national endeavours intended to beat the Soviets.</li>
-  <li>Similarly, <a href="https://alcpress.org/military/icbm/history.html">ICBM silos</a>. We compute the centroid distance of a county from ICBM silos, or silo density in the state. This is plausible, because silo location is almost certainly orthogonal to political support for the Moonshot program, or the Democratic administration.</li>
-  <li><a href="https://ed-thelen.org/loc.html">Nike missiles</a> (similar to SAC/ICBM).</li>
-</ol>
+<h2 id="how-do-we-measure-exposure-to-the-cold-war">How do we measure exposure to the Cold War?</h2>
+
+<p>Exposure could reasonably be measured using media (newspapers, television), but subscription to media and broadcast availability are both endogenous. Missiles are a convenient way to capture this, because citizens did not choose missile locations, and it is highly unlikely that they moved to places where they were more likely to be closer to a missile.<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">6</a></sup></p>
+
+<p>Thankfully, due to the sheer abundance of Cold War era military history efforts, I can measure distance to missiles by using geo-coded missile silo locations. The argument here is that geographically closer missiles are likely to strike fear (or at the very least, awareness), which in turn manifests as support for anti-Soviet measures like the Moon landing.</p>
+
+<p>For each county in the continental United States, I compute the distance to the nearest <a href="https://www.nicap.org/ncp/sac.htm">Strategic Air Command (SAC)</a> base (closer counties faced higher perceived first-strike risk and had more defense-oriented populations, which would translate to higher support for all national endeavours intended to beat the Soviets), distance to the nearest <a href="https://alcpress.org/military/icbm/history.html">Intercontinental Ballistic Missile (ICBM) silo</a>, and distance to the nearest <a href="https://ed-thelen.org/loc.html">Nike missile</a>. I compute the centroid distance of a county from ICBM silos, or silo density in the state. This is plausibly exogenous, because silo location is almost certainly orthogonal to political support for the Moonshot program, or the Democratic administration.</p>
+
+<p>I scrape missile locations from the linked sources above, and merge the county-level centroid distance measures with <a href="https://uselectionatlas.org/">county-level election data</a>.</p>
 
 <p><strong>Table 1: Cold War Defense Infrastructure Layers</strong></p>
 
@@ -104,39 +108,31 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
   </tbody>
 </table>
 
-<p><strong>From “The Military Standard”:</strong> The missile program also brought the Cold War home to many Americans. To farmers in the Great Plains, the Cold War suddenly came to life when the Air Force built Minuteman silos among their wheat fields. The Army’s Nike missile sites provided an even more striking reminder: many of these batteries were located near the most densely populated areas in the nation, and they provided graphic testimony to the severity of the conflict between the United States and Soviet Union.</p>
+<p><strong>From “The Military Standard”:</strong><sup id="fnref:milstd" role="doc-noteref"><a href="#fn:milstd" class="footnote" rel="footnote">7</a></sup> The missile program also brought the Cold War home to many Americans. To farmers in the Great Plains, the Cold War suddenly came to life when the Air Force built Minuteman silos among their wheat fields. The Army’s Nike missile sites provided an even more striking reminder: many of these batteries were located near the most densely populated areas in the nation, and they provided graphic testimony to the severity of the conflict between the United States and Soviet Union.</p>
 
 <p>There were important economic implications as well. The missile program brought sudden prosperity to sleepy towns like White Sands, New Mexico, and Huntsville, Alabama. Across the nation, tens of thousands of Americans found work building the complex missiles and huge launch facilities that would house the new weapons.</p>
 
-<p><strong>Data:</strong></p>
+<p>Again, <strong>from Roger D. Launius:</strong> The following year Newsweek echoed the Times story, stating: “The US space program is in decline. The Vietnam War and the desperate conditions of the nation’s poor and its cities—which make space flight seem, in comparison, like an embarrassing national self-indulgence—have combined to drag down a program where the sky was no longer the limit.”</p>
 
-<ol>
-  <li>Scrape missile location data (county level)</li>
-  <li>Download <a href="https://uselectionatlas.org/">county-level election data</a></li>
-  <li>Merge (1) &amp; (2) with Kantor and Whalley NASA contractor spending data (public R&amp;D data)</li>
-</ol>
-
-<p>Again, <strong>from Roger D. Launius:</strong></p>
-
-<p>The following year Newsweek echoed the Times story, stating: “The US space program is in decline. The Vietnam War and the desperate conditions of the nation’s poor and its cities—which make space flight seem, in comparison, like an embarrassing national self-indulgence—have combined to drag down a program where the sky was no longer the limit.”</p>
+<hr />
 
 <h2 id="testing-the-reduced-form">Testing the Reduced Form</h2>
 
-<p>We’ll run the following reduced-form regressions to test the channel:</p>
+<p>Now that we’ve set the stage for why missiles might help eliminate endogeneity, I run the following reduced-form regression to test the channel:</p>
 
 \[\text{Proximity to Missiles} \longrightarrow \text{Perceived Soviet Threat} \longrightarrow \text{Moonshot Support}\]
 
-<p>Instead of using a 2SLS design, I simply test if distance to missiles is a predictor of vote shares in favour of the Democrats.</p>
-
-<p>I split Nike missiles and ICBM missiles, because the former are urban and the latter are rural.</p>
+<p>Eventually, we want to instrument R&amp;D and military expenditure with missile distance measures. Here, I simply test if distance to missiles is a predictor of vote shares in favour of the Democrats. I split the sample of Nike missiles and ICBM missiles, because the former are urban and the latter are rural, in an attempt to speak to a rudimentary heterogeneity cut.</p>
 
 \[\text{DemVotePct}_{c,t} = \beta_1 \, \text{CentDist\_ICBM}_{c} + \gamma_s + \varepsilon_{c,t}\]
 
-<p>Counties that are closer to missile silos have a “higher perceived threat” of the Cold War by virtue of proximity to the military-industrial complex. My prior is that proximity to missiles implies stronger support for the Moonshot program, and the mechanism is salience. Having a missile in your backyard makes the Cold War a more tangible threat, inspiring support for the Moon landing, which was marketed as a nationally coordinated effort to beat Russia on a new frontier.</p>
+<p>To belabour my point, counties that are closer to missile silos have a “higher perceived threat” of the Cold War by virtue of proximity to the military-industrial complex. My prior is that proximity to missiles implies stronger support for the Moonshot program, and the mechanism is salience. Having a missile in your backyard makes the Cold War a more tangible threat, inspiring support for the Moon landing, which was marketed as a nationally coordinated effort to beat Russia on a new frontier. To empirically test this, I use centroid distance to the nearest missile to predict vote shares.</p>
 
-<p>To empirically test this, I use centroid distance to the nearest missile to predict vote shares. This is the reduced form. Eventually, we would like to use the distance to missile as an instrument for Public R&amp;D and military spending.</p>
+<p>We’ll look at presidential and congressional elections separately, and regress vote shares for Democrats, Republicans, and Other candidates on centroid distance to the nearest missile. For brevity, the tables below look at a cross section, and focus on the 1964 presidential elections.</p>
 
-<h3 id="icbm-distance">ICBM Distance</h3>
+<hr />
+
+<h3 id="distance-to-icbm-silos">Distance to ICBM Silos</h3>
 
 <p><strong>Table 2: Presidential Elections — Distance to Nearest ICBM and Vote Share</strong></p>
 
@@ -180,6 +176,8 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
 <p><em>Notes:</em> Standard errors clustered at the county level in parentheses. State fixed effects included. *p &lt; 0.10, **p &lt; 0.05, ***p &lt; 0.01.</p>
 
 <p><strong>Presidential elections:</strong> A <strong>1 SD increase in distance to the nearest missile site</strong> is associated with a <strong>1.5 percentage point decrease</strong> in Democrat vote share, a <strong>2.0 percentage point increase</strong> in Republican vote share, and a <strong>0.5 percentage point decrease</strong> in Other vote share. All of these estimates are statistically significant.</p>
+
+<p><em>Estimates are as hypothesized. Being farther away from a missile makes you less likely to vote for the Democrats, who are ostensibly running the show with anti-Soviet measures under Lyndon B. Johnson.</em></p>
 
 <p><strong>Table 3: Congressional Elections — Distance to Nearest ICBM and Vote Share</strong></p>
 
@@ -226,11 +224,15 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
 
 <p>Counties that are farther away from a missile show reduced support for Democrats, and increased support for Republicans. They also show reduced support for other candidates, and estimates for Republican votes are statistically significant.</p>
 
-<p><strong>Note:</strong> The key idea here is that missile placement is quasi-random to electoral politics (silo establishment is likely uncorrelated with local politics, and historical documents show that missile location choice has little to do with political lobbying).</p>
+<hr />
 
-<p>I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. This tests if the hypothesized channel has heterogeneous effects by urbanization, or if our results are just picking up an urban/rural divide in partisanship.</p>
+<blockquote>
+  <p><strong>Note:</strong> The key idea here is that missile placement is quasi-random to electoral politics (silo establishment is likely uncorrelated with local politics, and historical documents show that missile location choice has little to do with political lobbying).</p>
+</blockquote>
 
-<h3 id="nike-missile-distance">Nike Missile Distance</h3>
+<hr />
+
+<h3 id="distance-to-nike-missiles">Distance to Nike Missiles</h3>
 
 <p><strong>Table 4: Presidential Elections — Distance to Nearest Nike Missile and Vote Share</strong></p>
 
@@ -275,7 +277,13 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
 
 <p><strong>Presidential elections:</strong> A <strong>1 SD increase in distance to the nearest Nike missile site</strong> is associated with a <strong>0.7 percentage point increase</strong> in Democrat vote share, a <strong>0.7 percentage point decrease</strong> in Republican vote share, and a <strong>0.1 percentage point decrease</strong> in Other vote share. Democrat and Republican estimates are statistically significant.</p>
 
-<p><strong>Note:</strong> The opposite direction of effects for Nike missiles (compared to ICBMs) suggests that urban–rural heterogeneity is worth considering (even for downstream analyses with survey data).</p>
+<hr />
+
+<blockquote>
+  <p><strong>Note:</strong> The opposite direction of effects for Nike missiles (compared to ICBMs) suggests that urban–rural heterogeneity is worth considering (even for downstream analyses with survey data).</p>
+</blockquote>
+
+<hr />
 
 <p><strong>Table 5: Congressional Elections — Distance to Nearest Nike Missile and Vote Share</strong></p>
 
@@ -320,16 +328,42 @@ Specifically, we wanted to isolate the causal effect of public R&amp;D funding o
 
 <p><strong>Congressional elections:</strong> A <strong>1 SD increase in distance to the nearest Nike missile site</strong> is associated with a <strong>9.0 percentage point decrease</strong> in Democrat vote share, a <strong>3.8 percentage point decrease</strong> in Republican vote share, and a <strong>6.7 percentage point decrease</strong> in Other vote share. Democrat and Other estimates are statistically significant.</p>
 
-<h2 id="conclusion">Conclusion</h2>
+<p>I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. Ideally, we would want to isolate the effect of rural/urban partisanship from distance to missiles. The clean way to do this is to control for urban areas, but for a preliminary test, splitting the sample works fine.</p>
 
-<p>The reduced form behaves roughly as the salience story predicts: counties closer to ICBM silos voted more Democratic in presidential elections, consistent with proximity to the military-industrial complex making the Cold War—and the administration’s response to it—a more tangible concern. The Nike results complicate the picture. In presidential elections the sign flips, which suggests that some of what we are picking up is an urban/rural divide in partisanship rather than the perceived-threat channel alone. Any serious version of this design would need to confront that heterogeneity directly.</p>
+<p>If the results were purely driven by urbanization, we would expect the ICBM and Nike estimates to point in the same direction—both would simply be recovering the well-known urban/rural partisan divide. Instead, the two missile types produce opposite-signed coefficients. In a simple cross-sectional regression without fixed effects, distance to the nearest ICBM is associated with higher Republican vote share, while distance to the nearest Nike site is associated with lower Republican vote share.</p>
 
-<p>Still, the ingredients for an instrument are here. Missile placement is plausibly quasi-random with respect to local electoral politics, distance to the nearest site predicts vote shares, and the proposed mechanism (salience of the Soviet threat) is consistent with the historical record. The natural next step is the 2SLS design sketched above: use distance to missiles as an instrument for public R&amp;D and military spending, with Gallup approval of the Moonshot program as the outcome. That step is on hold, along with the rest of this project—but if the reduced form is any indication, it would be worth taking.</p>
+<p>This sign reversal is what we would expect given the geographic placement of each system: ICBMs were sited in remote rural areas of the Great Plains and Mountain West, while Nike batteries were deliberately placed in rings around major metropolitan centers. Being far from an ICBM means being far from rural missile infrastructure, and being far from a Nike site means being far from a city. The two distance measures point in opposite geographic directions, and the fact that their partisan gradients mirror this is reassuring. This suggests that the estimates are not simply collapsing into a single urban/rural heterogeneity story. The ICBM results, operating within the rural stratum, provide the cleaner test of the missile proximity channel, while the Nike results are difficult to separate from the urbanization effect and should be interpreted with caution.</p>
+
+<hr />
+
+<blockquote>
+  <p><strong>Note:</strong> This page will be updated when new results materialize. E-mail me with ideas (or glaring errors), and visit <a href="https://www.themilitarystandard.com/">this guy’s</a> website.</p>
+</blockquote>
+
+<hr />
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
       <p>The Moonshot program refers to President John F. Kennedy’s 1961 challenge to land a man on the Moon and return him safely to the Earth. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:launius" role="doc-endnote">
+      <p>Roger D. Launius, <a href="https://doi.org/10.1016/S0265-9646%2803%2900039-0">“Public Opinion Polls and Perceptions of US Human Spaceflight”</a>, <em>Space Policy</em> 19, no. 3 (2003): 163–175. <a href="#fnref:launius" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:kw" role="doc-endnote">
+      <p>Shawn Kantor and Alexander T. Whalley, <a href="https://www.nber.org/papers/w31471">“Moonshot: Public R&amp;D and Growth”</a>, NBER Working Paper No. 31471 (2023). <a href="#fnref:kw" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:mazzucato" role="doc-endnote">
+      <p>Mariana Mazzucato, <a href="https://marianamazzucato.com/books/mission-economy"><em>Mission Economy: A Moonshot Guide to Changing Capitalism</em></a> (Allen Lane, 2021). <a href="#fnref:mazzucato" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:gj" role="doc-endnote">
+      <p>Jonathan Gruber and Simon Johnson, <a href="https://www.jump-startingamerica.com/"><em>Jump-Starting America: How Breakthrough Science Can Revive Economic Growth and the American Dream</em></a> (PublicAffairs, 2019). <a href="#fnref:gj" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>This is possible for a small share of military workers who were employed in missile silo facilities for maintenance. In later stages of the project, the share of individuals in a county employed by the military is an easy control to throw in. <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:milstd" role="doc-endnote">
+      <p><a href="https://www.themilitarystandard.com/">The Military Standard</a>, an archival reference site documenting US Cold War missile programs. <a href="#fnref:milstd" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
