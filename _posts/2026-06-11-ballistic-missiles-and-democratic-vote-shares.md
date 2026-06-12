@@ -6,13 +6,13 @@ mathjax: true
 ---
 
 A while back, I was asked to find an exogenous predictor of popular support for Kennedy's Moonshot program.[^1]
-Specifically, we wanted to isolate the causal effect of public R&D funding on voting outcomes (both Gallup and federal election votes in favour of the Democrats) at the county level. We'll look at a very simple regression:
+Specifically, we wanted to isolate the causal effect of public R&D funding on voting outcomes (both Gallup and federal election votes in favour of the Democrats) at the county level. Consider this simple regression to test that effect:
 
 $$
 \text{DemVotePct}_{c, t} = \beta \, \text{RDFunds}_{c, t} + \varepsilon_{c, t}
 $$
 
-The outcome is county-level vote shares in favour of the Democrats, or Gallup survey questions that ask about approval for the Moonshot program specifically. Naturally, the regression above is far from causality, which necessitates a clean source of exogenous variation in vote share.
+The outcome is county-level vote shares in favour of the Democrats, or Gallup survey questions that ask about approval for the Moonshot program specifically. Naturally, the regression above is far from causal. This begs an instrument, which is also the topic of this blog.
 
 The following notes are from an internal memo which uses ballistic missiles as an instrument for public R&D funding. This line of investigation has now been put on hold (in favour of qualitative research), so this work is doomed to live on my website until I have time to pick it back up (highly unlikely). The bulk of this document is unchanged from when it was first circulated to my team. I've taken the liberty of adding some more context here for the unfamiliar reader.
 
@@ -69,7 +69,7 @@ $$
 Eventually, we want to instrument R&D and military expenditure with missile distance measures. Here, I simply test if distance to missiles is a predictor of vote shares in favour of the Democrats. I split the sample of Nike missiles and ICBM missiles, because the former are urban and the latter are rural, in an attempt to speak to a rudimentary heterogeneity cut.
 
 $$
-\text{DemVotePct}_{c,t} = \beta_1 \, \text{CentDist\_ICBM}_{c} + \gamma_s + \varepsilon_{c,t}
+\text{DemVotePct}_{c,t} = \beta_1 \, \text{CentDistICBM}_{c} + \gamma_s + \varepsilon_{c,t}
 $$
 
 To belabour my point, counties that are closer to missile silos have a "higher perceived threat" of the Cold War by virtue of proximity to the military-industrial complex. My prior is that proximity to missiles implies stronger support for the Moonshot program, and the mechanism is salience. Having a missile in your backyard makes the Cold War a more tangible threat, inspiring support for the Moon landing, which was marketed as a nationally coordinated effort to beat Russia on a new frontier. To empirically test this, I use centroid distance to the nearest missile to predict vote shares. 
@@ -149,6 +149,8 @@ Counties that are farther away from a missile show reduced support for Democrats
 *Notes:* Standard errors clustered at the county level in parentheses. State fixed effects included. \*p < 0.10, \*\*p < 0.05, \*\*\*p < 0.01.
 
 **Congressional elections:** A **1 SD increase in distance to the nearest Nike missile site** is associated with a **9.0 percentage point decrease** in Democrat vote share, a **3.8 percentage point decrease** in Republican vote share, and a **6.7 percentage point decrease** in Other vote share. Democrat and Other estimates are statistically significant.
+
+---
 
 I split the estimates by missile type because ICBMs are rural, and Nike missiles are urban. Ideally, we would want to isolate the effect of rural/urban partisanship from distance to missiles. The clean way to do this is to control for urban areas, but for a preliminary test, splitting the sample works fine.
 
