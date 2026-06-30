@@ -1,6 +1,7 @@
 <div class="site-title"><a href="/">Esha Vaze</a></div>
 <nav class="sidebar-nav">
   <a href="/" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+  <a href="/research/" class="{% if page.url contains '/research' %}active{% endif %}">Research</a>
   <a href="/blog/" class="{% if page.url contains '/blog' or page.layout == 'post' %}active{% endif %}">Blog</a>
   <a href="/funthings/" class="{% if page.url contains '/funthings' %}active{% endif %}">(Supposedly) Fun Things</a>
 </nav>

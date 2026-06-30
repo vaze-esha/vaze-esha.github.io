@@ -503,3 +503,24 @@ hr {
     display: none;
   }
 }
+
+.research-list {
+  padding-left: 1.2rem;
+}
+
+.research-list li {
+  margin-bottom: 1.2rem;
+}
+
+.research-list p {
+  margin: 0;
+}
+
+.coauthors {
+  font-size: 0.92em;
+  color: #555;
+}
+
+.slides-link {
+  font-size: 0.92em;
+}
