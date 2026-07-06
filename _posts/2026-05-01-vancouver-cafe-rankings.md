@@ -39,7 +39,7 @@ Lots of seating, very cozy (especially in the winter). Open late, has great wi-f
 **7. [Kafka's Coffee Roasting and Bakery](https://www.kafkascoffee.ca/)**  
 Massive. Large windows, very high ceilings, attached to the art school. The coffee is good, and they have a nice selection of sandwiches on house-baked sourdough bread. Very quiet in the summer, with good air conditioning.
 
-**8. [FUNK. Coffee Bar](https://funk.coffee/)**
+**8. [FUNK. Coffee Bar](https://funk.coffee/)**  
 Big windows and lots of seating. Good music (as reported by David, unverified by me). I like the coffee here, and there's occasional pop-ups for a variety of merchandise. Unrelated to working there, their branding is pretty fun. 
 
 ---
