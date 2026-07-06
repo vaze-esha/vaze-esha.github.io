@@ -32,11 +32,12 @@ $8 espresso flight. Small selection of baked goods, the croissants are really ni
 
 **5. [Analog Coffee](https://www.analogcoffee.ca/)**  
 Despite my personal beef with the chain for being mean to my roommate (their former employee), this is a solid place to work. It's often dominated by people with laptops for this reason. The coffee is uniformly good and all their locations have a lot of seating. I like the Yaletown location the most.
+> Note: No wi-fi on weekends. 
 
 **6. [Aperture Coffee Bar](https://www.aperturecoffeebar.com/)**  
 Lots of seating, very cozy (especially in the winter). Open late, has great wi-fi, jazz music, and sandwiches. Serves alcohol at night. I've spent a lot of hours here in the last 5 years and they've all been good.
 
-**6. [Kafka's Coffee Roasting and Bakery](https://www.kafkascoffee.ca/)**  
+**7. [Kafka's Coffee Roasting and Bakery](https://www.kafkascoffee.ca/)**  
 Massive. Large windows, very high ceilings, attached to the art school. The coffee is good, and they have a nice selection of sandwiches on house-baked sourdough bread. Very quiet in the summer, with good air conditioning.
 
 ---
