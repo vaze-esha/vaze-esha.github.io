@@ -55,5 +55,7 @@ Now, here is a list of cafés with good coffee (and in some cases, baked goods),
 7. [The Federal Store Luncheonette and Grocer](https://federalstore.ca/)
 8. [Platform 7 Coffee](https://platform7coffee.com/)
 
+---
+
 [^1]: I suffer from the wobbly-table curse. On any given day, the table I choose will be rocky at best. This actually makes my claim to (c) stronger because I persevere despite the horrors, managing to stay relatively unbiased despite my poor luck.
 [^2]: I strongly believe that there is an objective threshold for good music before subjective taste-based preferences kick in.
